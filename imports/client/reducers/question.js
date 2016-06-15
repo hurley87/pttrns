@@ -5,22 +5,13 @@ import showHintMsg from '../helpers/showHintMsg';
 export default function question(state=defaultState, action) {
 	switch(action.type) {
 		case "START_GAME":
-			return {
-				...state,
-				startGame: true,
-				timerOn: true,
-				guess: ''
-			}
+			return startGame(state);
 
 		case "TIMER":
-			return state.seconds == 1 ? timeRunsOut(state) : countdown(state);
+			return timer(state);
 
 		case 'PRESS_KEY':
-			const guess = state.guess + action.num;
-			const answer = state.answer;
-
-			// submission is valid if the answer to the question and their guess have the same number of digits
-			return answer.length == guess.length ? validSubmission(state, guess, answer) : inValidSubmission(state, guess)
+			return pressKey(state, action)
 
 		case "CONTINUE_EVALUATION":
 			return {
@@ -43,6 +34,24 @@ export default function question(state=defaultState, action) {
 	}
 }
 
+//////// 
+// START_GAME
+/////// 
+function startGame(state) {
+	return {
+		...state,
+		startGame: true,
+		timerOn: true,
+		guess: ''
+	}	
+}
+
+//////// 
+// TIMER
+/////// 
+function timer(state) {
+	return state.seconds == 1 ? timeRunsOut(state) : countdown(state);	
+}
 // state where times runs out 
 function timeRunsOut(state) {
 	return {
@@ -59,6 +68,17 @@ function countdown(state) {
 		...state,
 		seconds: state.seconds -= 1
 	}
+}
+
+//////// 
+// PRESS_KEY
+/////// 
+function pressKey(state, action) {
+	const guess = state.guess + action.num;
+	const answer = state.answer;
+
+	// submission is valid if the answer to the question and their guess have the same number of digits
+	return answer.length == guess.length ? validSubmission(state, guess, answer) : inValidSubmission(state, guess);
 }
 
 function validSubmission(state, guess, answer) {
@@ -132,49 +152,65 @@ function handleCorrect(state, submissions) {
 
 	switch(state.operator) {
 		case '+':
-			return {
-				...state,
-				num1: num1,
-				num2: num2,
-				answer: _.add(num1, num2).toString(),
-				guess: '',
-				right: state.right += 1,
-				submissions: submissions
-			};
+			return newAdditionQuestion(state, num1, num2, submissions);
 		case '-':
-			return {
-				...state,
-				num1: num1,
-				num2: num2,
-				answer: _.subtract(num1, num2).toString(),
-				guess: '',
-				right: state.right += 1,
-				submissions: submissions
-			};
+			return newSubtractionQuestion(state, num1, num2, submissions);
 		case 'x':
-			return {
-				...state,
-				num1: num1,
-				num2: num2,
-				answer: _.multiply(num1, num2).toString(),
-				guess: '',
-				right: state.right += 1,
-				submissions: submissions
-			};
+			return newMultiplicationQuestion(state, num1, num2, submissions);
 		case '/':
-			const product = _.multiply(num1, num2).toString();
-			return {
-				...state,
-				num1: product,
-				num2: num2,
-				answer: num1,
-				guess: '',
-				right: state.right += 1,
-				submissions: submissions
-			};
+			return newDivisionQuestion(state, num1, num2, submissions)
 		default:
 			return state
 	}
+}
+
+function newAdditionQuestion(state, num1, num2, submissions) {
+	return {
+		...state,
+		num1: num1,
+		num2: num2,
+		answer: _.add(num1, num2).toString(),
+		guess: '',
+		right: state.right += 1,
+		submissions: submissions
+	};
+}
+
+function newSubtractionQuestion(state, num1, num2, submissions) {
+	return {
+		...state,
+		num1: num1,
+		num2: num2,
+		answer: _.subtract(num1, num2).toString(),
+		guess: '',
+		right: state.right += 1,
+		submissions: submissions
+	};	
+}
+
+function newMultiplicationQuestion(state, num1, num2, submissions) {
+	return {
+		...state,
+		num1: num1,
+		num2: num2,
+		answer: _.multiply(num1, num2).toString(),
+		guess: '',
+		right: state.right += 1,
+		submissions: submissions
+	};	
+}
+
+function newDivisionQuestion(state, num1, num2, submissions) {
+	const product = _.multiply(num1, num2).toString();
+	return {
+		...state,
+		num1: product,
+		num2: num2,
+		answer: num1,
+		guess: '',
+		right: state.right += 1,
+		submissions: submissions
+	};	
 }
 
 function isWinner(state) {
