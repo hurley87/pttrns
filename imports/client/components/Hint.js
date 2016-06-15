@@ -2,7 +2,7 @@ import React from 'react';
 import ProgressBar from './ProgressBar';
 
 const Hint = React.createClass({
-	render() {
+	hint() {
 		return (
 			<div>
 				<ProgressBar width={this.props.question.progressWidth} />
@@ -13,8 +13,10 @@ const Hint = React.createClass({
 					</div>
 				</div>
 			</div>
-
 		)
+	},
+	render() {
+		return this.props.question.hint ? this.hint() : null
 	}
 });
 

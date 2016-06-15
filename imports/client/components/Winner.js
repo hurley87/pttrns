@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Winner = React.createClass({
-	render() {
+	winner() {
 		return (
 			<div className='container'>
 				<div className='text'>You Win!</div>
@@ -10,6 +10,9 @@ const Winner = React.createClass({
 				</div> 
 			</div>
 		)
+	},
+	render() {
+		return this.props.question.winner ? this.winner() : null;
 	}
 });
 
