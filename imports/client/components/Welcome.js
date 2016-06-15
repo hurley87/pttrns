@@ -8,7 +8,7 @@ const Welcome = React.createClass({
 					Answer {this.props.question.winningThreshold} addition problems in {this.props.question.totalTime} seconds.
 				</div> 
 				<div className='wrapper'>
-					<button className='button submit' onClick={this.props.start.bind(this)}>Start</button>
+					<button className='button submit' onClick={this.props.start}>Start</button>
 				</div>
 			</div>
 		)
