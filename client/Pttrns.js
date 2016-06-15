@@ -1,9 +1,9 @@
 import React from 'react';
-import WelcomeContainer from '../containers/Welcome';
-import LoserContainer from '../containers/Loser';
-import WinnerContainer from '../containers/Winner';
-import QuestionContainer from '../containers/Question';
-import HintContainer from '../containers/Hint'
+import WelcomeContainer from '../imports/client/containers/Welcome';
+import LoserContainer from '../imports/client/containers/Loser';
+import WinnerContainer from '../imports/client/containers/Winner';
+import QuestionContainer from '../imports/client/containers/Question';
+import HintContainer from '../imports/client/containers/Hint'
 
 const Pttrns = React.createClass({
 	render() {

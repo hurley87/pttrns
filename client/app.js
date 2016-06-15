@@ -2,7 +2,7 @@ import React  from 'react';
 import { render }  from 'react-dom';
 import { Provider } from 'react-redux';
 import Store from '../imports/client/store';
-import Pttrns from '../imports/client/components/Pttrns';
+import Pttrns from './Pttrns';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../imports/client/actions/actionCreators';
