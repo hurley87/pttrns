@@ -1,19 +1,19 @@
 import React from 'react';
-import Welcome from './Welcome';
-import Loser from './Loser';
-import Winner from './Winner';
-import Question from './Question';
-import Hint from './Hint'
+import WelcomeContainer from '../containers/Welcome';
+import LoserContainer from '../containers/Loser';
+import WinnerContainer from '../containers/Winner';
+import QuestionContainer from '../containers/Question';
+import HintContainer from '../containers/Hint'
 
 const Pttrns = React.createClass({
 	render() {
 		return (
 			<div>
-				<Welcome {...this.props}  /> 
-				<Question {...this.props} /> 
-				<Hint {...this.props} />
-				<Winner {...this.props} /> 
-				<Loser {...this.props} /> 
+				<WelcomeContainer {...this.props}  /> 
+				<QuestionContainer {...this.props} /> 
+				<HintContainer {...this.props} />
+				<WinnerContainer {...this.props} /> 
+				<LoserContainer {...this.props} /> 
 			</div>
 		);
 	}

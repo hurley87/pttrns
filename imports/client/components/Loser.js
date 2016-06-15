@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Loser = React.createClass({
-	loser() {
+	render() {
 		return (
 			<div className='container'>
 				<div className='text'>You Lose!</div> 
@@ -10,10 +10,6 @@ const Loser = React.createClass({
 				</div>
 			</div>
 		)
-	},
-	render() {
-		return this.props.question.gameOver && !this.props.question.winner ? this.loser() : null;
-
 	}
 });
 

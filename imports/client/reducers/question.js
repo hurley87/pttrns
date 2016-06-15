@@ -53,7 +53,7 @@ export default function question(state=defaultState, action) {
 				// user gets the question wrong 
 				} else {
 					//user has 3 or less questions wrong they can continue
-					if(state.wrong <= state.lives) {
+					if(state.wrong < state.lives) {
 						return {
 							...state,
 							guess: '',

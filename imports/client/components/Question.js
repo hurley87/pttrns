@@ -12,7 +12,7 @@ const Question = React.createClass({
 	},
 	wrong() {
 		const question = this.props.question;
-		return <div className='text'>lives remaining: { question.lives - question.wrong + 1 }</div>
+		return <div className='text'>lives remaining: { question.lives - question.wrong }</div>
 	},
 	keypad() {
 		const keys = [];
@@ -22,7 +22,7 @@ const Question = React.createClass({
 	key(i) {
 		return <button className='button' key={i} onClick={this.props.pressKey.bind(this, i)}>{ i }</button>
 	},
-	questionPresentation() {
+	render() {
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<ProgressBar width={this.props.question.progressWidth} />
@@ -42,9 +42,6 @@ const Question = React.createClass({
 				</div>
 			</CSSTransitionGroup>
 		)
-	},
-	render() {
-		return this.props.question.startGame && !this.props.question.gameOver ? this.questionPresentation() : null;
 	}
 });
 
