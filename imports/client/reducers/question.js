@@ -1,14 +1,18 @@
 import { _ } from 'lodash';
 import defaultState from '../defaultState';
-import showHintMsg from '../helpers/showHintMsg';
 
 export default function question(state=defaultState, action) {
 	switch(action.type) {
 		case "START_GAME":
-			return startGame(state);
+			return {
+				...state,
+				startGame: true,
+				timerOn: true,
+				guess: ''
+			}	
 
 		case "TIMER":
-			return timer(state);
+			return state.seconds == 1 ? timeRunsOut(state) : countdown(state);	
 
 		case 'PRESS_KEY':
 			return pressKey(state, action)
@@ -34,24 +38,7 @@ export default function question(state=defaultState, action) {
 	}
 }
 
-//////// 
-// START_GAME
-/////// 
-function startGame(state) {
-	return {
-		...state,
-		startGame: true,
-		timerOn: true,
-		guess: ''
-	}	
-}
 
-//////// 
-// TIMER
-/////// 
-function timer(state) {
-	return state.seconds == 1 ? timeRunsOut(state) : countdown(state);	
-}
 // state where times runs out 
 function timeRunsOut(state) {
 	return {
@@ -104,11 +91,11 @@ function inValidSubmission(state, guess) {
 }
 
 function handleIncorrect(state, submissions) {
-	return state.wrong < state.lives ? wrongButAlive(state) : noMoreLives(state);
+	return state.wrong < state.lives ? wrongButAlive(state, submissions) : noMoreLives(state, submissions);
 }
 
 //state where a user is wrong but can still play on - need a better name lol
-function wrongButAlive(state) {
+function wrongButAlive(state, submissions) {
 	return {
 		...state,
 		guess: '',
@@ -120,7 +107,7 @@ function wrongButAlive(state) {
 }
 
 // state where game is over because a user runs out of lives
-function noMoreLives(state) {
+function noMoreLives(state, submissions) {
 	return {
 		...state,
 		gameOver: true,
@@ -202,11 +189,12 @@ function newMultiplicationQuestion(state, num1, num2, submissions) {
 
 function newDivisionQuestion(state, num1, num2, submissions) {
 	const product = _.multiply(num1, num2).toString();
+	const answer = num1.toString();
 	return {
 		...state,
 		num1: product,
 		num2: num2,
-		answer: num1,
+		answer: answer,
 		guess: '',
 		right: state.right += 1,
 		submissions: submissions
@@ -215,5 +203,82 @@ function newDivisionQuestion(state, num1, num2, submissions) {
 
 function isWinner(state) {
 	return state.right >= state.winningThreshold;
+}
+
+// TODO: add pttrn's hints for each possible question and find a way to refactor
+function showHintMsg(state) {
+	switch(state.operator) {
+		case '+':
+			for(var i = 1; i <= 9; i++) {
+				for(var n = 1; n <= i; n++) {
+					if(state.num1 == i && state.num2 == n) {
+						return i + n <= 10 ? countOn(i, n) : anchor10(i, n);
+					}
+				}
+			}
+		case '-':
+			for(var i = 1; i <= 9; i++) {
+				for(var n = 1; n <= i; n++) {
+					if(state.num1 == i && state.num2 == n) {
+						
+					}
+				}
+			}
+			return 'this is a subtraction problem';
+		default:
+			return "Opps, that wasn't the right answer. Try that one again.";
+	}
+}
+
+function countOn(i, n) {
+	return 'Use Count-On. Start with ' + i + ' and say "' + countOnWords(countOnArr(i , n)) + '".'
+}
+
+function anchor10(i, n) {
+	const sum = i + n;
+	let remainder = 10 - i;
+	let decomp = n - remainder;
+	return 'Use Anchor10. Start with ' + integerToWord(i) + '. Recognize that ' + n + ' is ' + remainder + '+' + decomp + '.' +
+		" So think of " + i + '+' + n + " as " + i + "+" + remainder + '+' + decomp + " = 10+" + decomp + " = " + sum;
+}
+
+function countOnWords(arr) {
+	return arr.map( i => integerToWord(i)).join(', ');
+}
+
+function countOnArr(i , n) {
+	const sum = i + n;
+	let arr = [];
+	for(var x = i; x <= sum; x++) {
+		arr.push(x);
+	}
+	return arr;
+}
+
+function integerToWord(num) {
+	switch(num) {
+		case 1:
+			return 'one';
+		case 2:
+			return 'two';
+		case 3: 
+			return 'three';
+		case 4:
+			return 'four';
+		case 5: 
+			return 'five';
+		case 6:
+			return 'six';
+		case 7:
+			return 'seven';
+		case 8:
+			return 'eight';
+		case 9:
+			return 'nine';
+		case 10:
+			return 'ten';
+		default:
+			return 'zero';
+	}
 }
 
