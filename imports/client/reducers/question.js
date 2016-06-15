@@ -19,15 +19,16 @@ export default function question(state=defaultState, action) {
 			const guess = state.guess + action.num;
 			const answer = state.answer;
 			// first see if user gets the 
-			if(state.answer.length == guess.length) {
+			if(answer.length == guess.length) {
 				// submit their result (right or wrong) to state
-				state.submissions.push({
+				const newSubmissionsCollection = state.submissions.concat([{
 					operator: state.operator,
 					num1: state.num1,
 					num2: state.num2,
 					answer: answer,
 					guess: guess
-				});
+				}]) 
+
 				// user gets the question right, assign two random variables to 
 				if(guess === answer) {
 					let num1 = _.random(state.min, state.max);
@@ -47,18 +48,19 @@ export default function question(state=defaultState, action) {
 						num2 = smaller;
 					}
 
-					return evaluateQuestion(state, num1, num2);
+					return evaluateQuestion(state, num1, num2, newSubmissionsCollection);
 
 				// user gets the question wrong 
 				} else {
 					//user has 3 or less questions wrong they can continue
-					if(state.wrong < state.lives) {
+					if(state.wrong <= state.lives) {
 						return {
 							...state,
 							guess: '',
 							hint: true,
 							hintMsg: showHintMsg(state), 
-							wrong: state.wrong += 1
+							wrong: state.wrong += 1,
+							submissions: newSubmissionsCollection
 						};
 					} else {
 						// game over if user gets more then 3 wrong!
@@ -66,7 +68,8 @@ export default function question(state=defaultState, action) {
 							...state,
 							gameOver: true,
 							seconds: state.totalTime,
-							winner: isWinner(state)
+							winner: isWinner(state),
+							submissions: newSubmissionsCollection
 						};
 					}
 				}
@@ -117,7 +120,7 @@ function countdown(state) {
 	}
 }
 
-function evaluateQuestion(state, num1, num2) {
+function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
 	switch(state.operator) {
 		case '+':
 			return {
@@ -126,7 +129,8 @@ function evaluateQuestion(state, num1, num2) {
 				num2: num2,
 				answer: _.add(num1, num2).toString(),
 				guess: '',
-				right: state.right += 1
+				right: state.right += 1,
+				submissions: newSubmissionsCollection
 			};
 		case '-':
 			return {
@@ -135,7 +139,8 @@ function evaluateQuestion(state, num1, num2) {
 				num2: num2,
 				answer: _.subtract(num1, num2).toString(),
 				guess: '',
-				right: state.right += 1
+				right: state.right += 1,
+				submissions: newSubmissionsCollection
 			};
 		case 'x':
 			return {
@@ -144,7 +149,8 @@ function evaluateQuestion(state, num1, num2) {
 				num2: num2,
 				answer: _.multiply(num1, num2).toString(),
 				guess: '',
-				right: state.right += 1
+				right: state.right += 1,
+				submissions: newSubmissionsCollection
 			};
 		case '/':
 			const product = _.multiply(num1, num2).toString();
@@ -154,7 +160,8 @@ function evaluateQuestion(state, num1, num2) {
 				num2: num2,
 				answer: num1,
 				guess: '',
-				right: state.right += 1
+				right: state.right += 1,
+				submissions: newSubmissionsCollection
 			};
 		default:
 			return state
