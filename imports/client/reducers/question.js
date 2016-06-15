@@ -170,105 +170,72 @@ function isWinner(state) {
 	return state.right >= state.winningThreshold;
 }
 
+
 // TODO: add pttrn's hints for each possible question and find a way to refactor
 function showHintMsg(state) {
 	switch(state.operator) {
 		case '+':
-			if(state.num1 == 1 && state.num2 == 1) {
-				return 'Use Count-On.  Say "one, two".';
-			} else if(state.num1 == 2 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the larger number 2 and say "two, three".';
-			} else if(state.num1 == 2 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the larger number 2 and say "two, three, four".';
-			} else if(state.num1 == 3 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the larger number 3 and say "three, four".';
-			} else if(state.num1 == 3 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the larger number 3 and say "three, four, five".';
-			} else if(state.num1 == 3 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the first 3 and say "three, four, five, six".'
-			} else if(state.num1 == 4 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the larger number 4 and say "four, five".';
-			} else if(state.num1 == 4 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the larger number 4 and say "four, five, six".';
-			} else if(state.num1 == 4 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the larger number 4 and say "four, five, six, seven".';
-			} else if(state.num1 == 4 && state.num2 == 4) {
-				return 'Use Count-On.  Start with one of the 4s and say "four, five, six, seven, eight".';
-			} else if(state.num1 == 5 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the 5 and say "five, six".';
-			} else if(state.num1 == 5 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the 5 and say "five, six, seven".';
-			} else if(state.num1 == 5 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the 5 and say "five, six, seven, eight".';
-			} else if(state.num1 == 5 && state.num2 == 4) {
-				return 'Use Count-On.  Start with the 5 and say "five, six, seven, eight, nine".';
-			} else if(state.num1 == 5 && state.num2 == 5) {
-				return 'Use Count-On.  Start with the first 5 and say "five, six, seven, eight, nine, ten".';
-			} else if(state.num1 == 6 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the 6 and say "six, seven".';
-			} else if(state.num1 == 6 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the 6 and say "six, seven, eight".';
-			} else if(state.num1 == 6 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the 6 and say "six, seven, eight, nine".';
-			} else if(state.num1 == 6 && state.num2 == 4) {
-				return 'Use Count-On.  Start with the 6 and say "six, seven, eight, nine, ten".';
-			} else if(state.num1 == 6 && state.num2 == 5) {
-				return 'Use Anchor10.  Start with the 6.  Recognize that 5 is 4 + 1.  So think of 6+5 as 6+4+1 = 10+1 = 11';
-			} else if(state.num1 == 6 && state.num2 == 6) {
-				return 'Use Anchor10.  Start with the 6.  Recognize that 6 is 4 + 2.  So think of 6+6 as 6+4+2 = 10+2 = 12';
-			} else if(state.num1 == 7 && state.num2 == 1) {
-				return 'Use Count-On.  Say "seven, eight".  The answer is 8.';
-			} else if(state.num1 == 7 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the larger number, 7, and then extend the count by the smaller number, 2.  In this case, say "seven, eight, nine" and the answer is 9.  ';
-			} else if(state.num1 == 7 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the larger number, 7, and then extend the count by the smaller number, 3.  In this case, say "seven, eight, nine, ten" and the answer is 10.  ';
-			} else if(state.num1 == 7 && state.num2 == 4) {
-				return 'Use Anchor10.  Start with the 7.  Recognize that 4 is 3+1.  So think of 7+4 as 7+3+1 = 10+1 = 11';
-			} else if(state.num1 == 7 && state.num2 == 5) {
-				return 'Use Anchor10.  Start with the 7.  Recognize that 5 is 3+2.  So think of 7+5 as 7+3+2 = 10+2 = 12';
-			} else if(state.num1 == 7 && state.num2 == 6) {
-				return 'Use Anchor10.  Start with the 7.  Recognize that 6 is 3+3.  So think of 7+6 as 7+3+3 = 10+3 = 13';
-			} else if(state.num1 == 7 && state.num2 == 7) {
-				return 'Use Anchor10.  Start with the 7.  Recognize that the other 7 is 3+4.  So think of 7+7 as 7+3+4 = 10+4 = 14';
-			} else if(state.num1 == 8 && state.num2 == 1) {
-				return 'Use Count-On.  Say "eight, nine".  The answer is 9.';
-			} else if(state.num1 == 8 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the larger number, 8, and then extend the count by the smaller number, 2.  In this case, say "eight, nine, ten" and the answer is 10.  ';
-			} else if(state.num1 == 8 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the larger number, 8, and then extend the count by the smaller number, 3.  In this case, say "nine, ten, eleven" and the answer is 11.  ';
-			} else if(state.num1 == 8 && state.num2 == 4) {
-				return 'Use Anchor10.  Start with the 8.  Recognize that 4 is 2+2.  So think of 8+4 as 8+2+2 = 10+2 = 12';
-			} else if(state.num1 == 8 && state.num2 == 5) {
-				return 'Use Anchor10.  Start with the 8.  Recognize that 5 is 2+3.  So think of 8+5 as 8+2+3 = 10+3 = 13';
-			} else if(state.num1 == 8 && state.num2 == 6) {
-				return 'Use Anchor10.  Start with the 8.  Recognize that 6 is 2+4.  So think of 8+6 as 8+2+4 = 10+4 = 14';
-			} else if(state.num1 == 8 && state.num2 == 7) {
-				return 'Use Anchor10.  Start with the 8.  Recognize that 7 is 2+5.  So think of 8+7 as 8+2+5 = 10+5 = 15';
-			} else if(state.num1 == 8 && state.num2 == 8) {
-				return 'Use Anchor10.  Start with one of the 8s.  Recognize that the other 8 is 2+6.  So think of 8+8 as 8+2+6 = 10+6 = 16';
-			} else if(state.num1 == 9 && state.num2 == 1) {
-				return 'Use Count-On.  Start with the 9 and say "nine, ten".  The answer is 10.';
-			} else if(state.num1 == 9 && state.num2 == 2) {
-				return 'Use Count-On.  Start with the 9 and say "nine, ten, eleven".  The answer is 11.';
-			} else if(state.num1 == 9 && state.num2 == 3) {
-				return 'Use Count-On.  Start with the 9 and say "nine, ten, eleven, twelve".  The answer is 12.';
-			} else if(state.num1 == 9 && state.num2 == 4) {
-				return 'Use Anchor10.  Start with the 9.  Recognize that 4 is 1+3.  So think of 9+4 as 9+1+3 = 10+3 = 13';
-			} else if(state.num1 == 9 && state.num2 == 5) {
-				return 'Use Anchor10.  Start with the 9.  Recognize that 5 is 1+4.  So think of 9+5 as 9+1+4 = 10+4 = 14';
-			} else if(state.num1 == 9 && state.num2 == 6) {
-				return 'Use Anchor10.  Start with the 9.  Recognize that 6 is 1+5.  So think of 9+6 as 9+1+5 = 10+5 = 15';
-			} else if(state.num1 == 9 && state.num2 == 7) {
-				return 'Use Anchor10.  Start with the 9.  Recognize that 7 is 1+6.  So think of 9+7 as 9+1+6 = 10+6 = 16';
-			} else if(state.num1 == 9 && state.num2 == 8) {
-				return 'Use Anchor10.  Start with the 9.  Recognize that 8 is 1+7.  So think of 9+8 as 9+1+7 = 10+7 = 17';
-			} else if(state.num1 == 9 && state.num2 == 9) {
-				return 'Use Anchor10.  Start with one of the 9s.  Recognize that the other 9 is 1+8.  So think of 9+9 as 9+1+8 = 10+8 = 18';
-			} else {
-				return "Opps, that wasn't the right answer. Try that one again.";
+			for(var i = 1; i <= 9; i++) {
+				for(var n = 1; n <= i; n++) {
+					if(state.num1 == i && state.num2 == n) {
+						return i + n <= 10 ? countOn(i, n) : anchor10(i, n);
+					}
+				}
 			}
 		default:
 			return "Opps, that wasn't the right answer. Try that one again."
+	}
+}
+
+function countOn(i, n) {
+	return 'Use Count-On. Start with ' + i + ' and say "' + countOnWords(countOnArr(i , n)) + '".'
+}
+
+function anchor10(i, n) {
+	const sum = i + n;
+	let remainder = 10 - i;
+	let decomp = n - remainder;
+	return 'Use Anchor10. Start with ' + integerToWord(i) + '. Recognize that ' + n + ' is ' + remainder + '+' + decomp + '.' +
+		" So think of " + i + '+' + n + " as " + i + "+" + remainder + '+' + decomp + " = 10+" + decomp + " = " + sum;
+}
+
+function countOnWords(arr) {
+	return arr.map( i => integerToWord(i)).join(', ');
+}
+
+function countOnArr(i , n) {
+	const sum = i + n;
+	let arr = [];
+	for(var x = i; x <= sum; x++) {
+		arr.push(x);
+	}
+	return arr;
+}
+
+function integerToWord(num) {
+	switch(num) {
+		case 1:
+			return 'one';
+		case 2:
+			return 'two';
+		case 3: 
+			return 'three';
+		case 4:
+			return 'four';
+		case 5: 
+			return 'five';
+		case 6:
+			return 'six';
+		case 7:
+			return 'seven';
+		case 8:
+			return 'eight';
+		case 9:
+			return 'nine';
+		case 10:
+			return 'ten';
+		default:
+			return 'zero';
 	}
 }
 
