@@ -14,71 +14,12 @@ export default function question(state=defaultState, action) {
 		case "TIMER":
 			return state.seconds == 1 ? timeRunsOut(state) : countdown(state);
 
-		//TODO: refactor this logic 
 		case 'PRESS_KEY':
 			const guess = state.guess + action.num;
 			const answer = state.answer;
-			// first see if user gets the 
-			if(answer.length == guess.length) {
-				// submit their result (right or wrong) to state
-				const newSubmissionsCollection = state.submissions.concat([{
-					operator: state.operator,
-					num1: state.num1,
-					num2: state.num2,
-					answer: answer,
-					guess: guess
-				}]) 
 
-				// user gets the question right, assign two random variables to 
-				if(guess === answer) {
-					let num1 = _.random(state.min, state.max);
-					let num2 = _.random(state.min, state.max);
-
-					// dont show the same question twice
-					while(num1 == state.num1 && num2 == state.num2) {
-						num1 = _.random(state.min, state.max);
-						num2 = _.random(state.min, state.max);
-					}
-
-					// make sure num1 is greater then num2
-					if(num2 > num1) {
-						const larger = num2;
-						const smaller = num1;
-						num1 = larger;
-						num2 = smaller;
-					}
-
-					return evaluateQuestion(state, num1, num2, newSubmissionsCollection);
-
-				// user gets the question wrong 
-				} else {
-					//user has 3 or less questions wrong they can continue
-					if(state.wrong < state.lives) {
-						return {
-							...state,
-							guess: '',
-							hint: true,
-							hintMsg: showHintMsg(state), 
-							wrong: state.wrong += 1,
-							submissions: newSubmissionsCollection
-						};
-					} else {
-						// game over if user gets more then 3 wrong!
-						return {
-							...state,
-							gameOver: true,
-							seconds: state.totalTime,
-							winner: isWinner(state),
-							submissions: newSubmissionsCollection
-						};
-					}
-				}
-			} else {
-				return {
-					...state,
-					guess: guess
-				};
-			}
+			// submission is valid if the answer to the question and their guess have the same number of digits
+			return answer.length == guess.length ? validSubmission(state, guess, answer) : inValidSubmission(state, guess)
 
 		case "CONTINUE_EVALUATION":
 			return {
@@ -101,6 +42,7 @@ export default function question(state=defaultState, action) {
 	}
 }
 
+// state where times runs out 
 function timeRunsOut(state) {
 	return {
 		...state,
@@ -118,7 +60,75 @@ function countdown(state) {
 	}
 }
 
-function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
+function validSubmission(state, guess, answer) {
+	// submit their result (right or wrong) to state
+	const submissions = state.submissions.concat([{
+		operator: state.operator,
+		num1: state.num1,
+		num2: state.num2,
+		answer: answer,
+		guess: guess
+	}]) 
+
+	// user gets the question right, assign two random variables to 
+	return guess === answer ? handleCorrect(state, submissions) : handleIncorrect(state, submissions)
+}
+
+// state where a user submits a reponse but not enough digits 
+function inValidSubmission(state, guess) {
+	return {
+		...state,
+		guess: guess
+	};
+}
+
+function handleIncorrect(state, submissions) {
+	return state.wrong < state.lives ? wrongButAlive(state) : noMoreLives(state);
+}
+
+//state where a user is wrong but can still play on - need a better name lol
+function wrongButAlive(state) {
+	return {
+		...state,
+		guess: '',
+		hint: true,
+		hintMsg: showHintMsg(state), 
+		wrong: state.wrong += 1,
+		submissions: submissions
+	};
+}
+
+// state where game is over because a user runs out of lives
+function noMoreLives(state) {
+	return {
+		...state,
+		gameOver: true,
+		seconds: state.totalTime,
+		winner: false,
+		submissions: submissions
+	};
+}
+
+// TODO: refactor this
+function handleCorrect(state, submissions) {
+
+	let num1 = _.random(state.min, state.max);
+	let num2 = _.random(state.min, state.max);
+
+	// dont show the same question twice
+	while(num1 == state.num1 && num2 == state.num2) {
+		num1 = _.random(state.min, state.max);
+		num2 = _.random(state.min, state.max);
+	}
+
+	// make sure num1 is greater then num2
+	if(num2 > num1) {
+		const larger = num2;
+		const smaller = num1;
+		num1 = larger;
+		num2 = smaller;
+	}
+
 	switch(state.operator) {
 		case '+':
 			return {
@@ -128,7 +138,7 @@ function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
 				answer: _.add(num1, num2).toString(),
 				guess: '',
 				right: state.right += 1,
-				submissions: newSubmissionsCollection
+				submissions: submissions
 			};
 		case '-':
 			return {
@@ -138,7 +148,7 @@ function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
 				answer: _.subtract(num1, num2).toString(),
 				guess: '',
 				right: state.right += 1,
-				submissions: newSubmissionsCollection
+				submissions: submissions
 			};
 		case 'x':
 			return {
@@ -148,7 +158,7 @@ function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
 				answer: _.multiply(num1, num2).toString(),
 				guess: '',
 				right: state.right += 1,
-				submissions: newSubmissionsCollection
+				submissions: submissions
 			};
 		case '/':
 			const product = _.multiply(num1, num2).toString();
@@ -159,7 +169,7 @@ function evaluateQuestion(state, num1, num2, newSubmissionsCollection) {
 				answer: num1,
 				guess: '',
 				right: state.right += 1,
-				submissions: newSubmissionsCollection
+				submissions: submissions
 			};
 		default:
 			return state
