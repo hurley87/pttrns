@@ -1,11 +1,11 @@
 import React from 'react';
-import ProgressBar from './ProgressBar';
+import ProgressBarContainer from '../containers/ProgressBar';
 
 const Hint = React.createClass({
 	render() {
 		return (
 			<div>
-				<ProgressBar width={this.props.question.progressWidth} />
+				<ProgressBarContainer question={this.props.question} />
 				<div className='container'>
 					<div className='text'>{this.props.question.hintMsg}</div> 
 					<div className='wrapper'>

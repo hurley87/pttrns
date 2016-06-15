@@ -1,6 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import ProgressBar from './ProgressBar';
+import ProgressBarContainer from '../containers/ProgressBar';
 
 const Question = React.createClass({
 	question() {
@@ -25,7 +25,7 @@ const Question = React.createClass({
 	render() {
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-				<ProgressBar width={this.props.question.progressWidth} />
+				<ProgressBarContainer question={this.props.question} />
 				<div className='wrapper'>
 
 					{ this.question() }

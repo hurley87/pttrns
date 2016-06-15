@@ -107,16 +107,14 @@ function timeRunsOut(state) {
 		timerOn: false,
 		gameOver: true,
 		seconds: state.totalTime,
-		winner: isWinner(state),
-		progressWidth: 100
+		winner: isWinner(state)
 	}
 }
 
 function countdown(state) {
 	return {
 		...state,
-		seconds: state.seconds -= 1,
-		progressWidth: parseFloat(state.seconds / state.totalTime * 100)
+		seconds: state.seconds -= 1
 	}
 }
 
