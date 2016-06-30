@@ -10,7 +10,7 @@ const WelcomeContainer = React.createClass({
 		}, 1000);
 	},
 	render() {
-		return !this.props.question.startGame ? <Welcome {...this.props}  start={this.start} />  : null;
+		return !this.props.question.startGame && !this.props.question.gameOver ? <Welcome {...this.props} start={this.start} />  : null;
 	}
 });
 

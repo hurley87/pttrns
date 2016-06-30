@@ -8,7 +8,8 @@ export default function question(state=defaultState, action) {
 				...state,
 				startGame: true,
 				timerOn: true,
-				guess: ''
+				guess: '',
+				seconds: state.totalTime
 			}	
 
 		case "TIMER":
@@ -209,7 +210,7 @@ function isWinner(state) {
 function showHintMsg(state) {
 	switch(state.operator) {
 		case '+':
-			for(var i = 1; i <= 9; i++) {
+			for(var i = 1; i <= state.max; i++) {
 				for(var n = 1; n <= i; n++) {
 					if(state.num1 == i && state.num2 == n) {
 						return i + n <= 10 ? countOn(i, n) : anchor10(i, n);
@@ -217,39 +218,65 @@ function showHintMsg(state) {
 				}
 			}
 		case '-':
-			for(var i = 1; i <= 9; i++) {
+			for(var i = 1; i <= state.max; i++) {
 				for(var n = 1; n <= i; n++) {
-					if(state.num1 == i && state.num2 == n) {
-						
+					if(i > 10 && i - n < 9) {
+						return subtractAnchor10(i, n);
+					} else {
+						if(state.num1 == i && state.num2 == n) {
+							return i - n <= 3 ? countBack(i, n) : equivalentAddition(i, n);
+						}
 					}
 				}
 			}
-			return 'this is a subtraction problem';
 		default:
 			return "Opps, that wasn't the right answer. Try that one again.";
 	}
 }
 
-function countOn(i, n) {
-	return 'Use Count-On. Start with ' + i + ' and say "' + countOnWords(countOnArr(i , n)) + '".'
+function subtractAnchor10(num1, num2) {
+	const diff = num1 - 10;
+	const decomp = num2 - diff;
+	const answer = num1 - num2;
+	return 'Use Anchor10. Subtract ' + diff + ' from ' + num1 + ' to get to 10. Then subtract another ' + decomp + ' to get to ' + answer;
 }
 
-function anchor10(i, n) {
-	const sum = i + n;
-	let remainder = 10 - i;
-	let decomp = n - remainder;
-	return 'Use Anchor10. Start with ' + integerToWord(i) + '. Recognize that ' + n + ' is ' + remainder + '+' + decomp + '.' +
-		" So think of " + i + '+' + n + " as " + i + "+" + remainder + '+' + decomp + " = 10+" + decomp + " = " + sum;
+function equivalentAddition(num1, num2) {
+	return 'What added to ' + num2 + ' gives you ' + num1 + '?';
+}
+
+function countBack(num1, num2) {
+	return 'Use Count-Back. Say "' + countOnWords(countBackArr(num1, num2)) + '".'
+}
+
+function countBackArr(num1, num2) {
+	let arr = [];
+	for(var x = num1; x >= num2; x--) {
+		arr.push(x);
+	}
+	return arr;
+}
+
+function countOn(num1, num2) {
+	return 'Use Count-On. Start with ' + num1 + ' and say "' + countOnWords(countOnArr(num1 , num2)) + '".'
+}
+
+function anchor10(num1, num2) {
+	const sum = num1 + num2;
+	let remainder = 10 - num1;
+	let decomp = num2 - remainder;
+	return 'Use Anchor10. Start with ' + integerToWord(num1) + '. Recognize that ' + num2 + ' is ' + remainder + '+' + decomp + '.' +
+		" So think of " + num1 + '+' + num2 + " as " + num1 + "+" + remainder + '+' + decomp + " = 10+" + decomp + " = " + sum;
 }
 
 function countOnWords(arr) {
 	return arr.map( i => integerToWord(i)).join(', ');
 }
 
-function countOnArr(i , n) {
-	const sum = i + n;
+function countOnArr(num1 , num2) {
+	const sum = num1 + num2;
 	let arr = [];
-	for(var x = i; x <= sum; x++) {
+	for(var x = num1; x <= sum; x++) {
 		arr.push(x);
 	}
 	return arr;

@@ -1,14 +1,14 @@
 
 // starting game variables - choose wisely
 const min = 1;
-const max = 10;
+const max = 5;
 const num1 = 1;
 const num2 = 1;
-const answer = '1';
-const totalTime = 30;
+const answer = '2';
+const totalTime = 1000;
 const winningThreshold = 15;
-const startingLives = 2;
-const startingOperator = '/';
+const startingLives = 4;
+const startingOperator = '+';
 
 //set default state of game
 const defaultState = {
