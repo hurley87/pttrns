@@ -2,6 +2,8 @@ import React from 'react';
 
 const Loser = React.createClass({
 	render() {
+		const submissions = this.props.question.submissions;
+		console.log(submissions)
 		return (
 			<div className='container'>
 				<div className='text'>You Lose!</div> 
