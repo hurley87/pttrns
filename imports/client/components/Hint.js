@@ -9,7 +9,7 @@ const Hint = React.createClass({
 				<div className='container'>
 					<div className='text'>{this.props.question.hintMsg}</div> 
 					<div className='wrapper'>
-						<button className='button submit' onClick={this.props.continueEvaluation.bind(this)}>continue</button>
+						<button className='submit' onClick={this.props.continueEvaluation.bind(this)}>continue</button>
 					</div>
 				</div>
 			</div>

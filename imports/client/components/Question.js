@@ -8,7 +8,7 @@ const Question = React.createClass({
 		return <div className='question'>{ question.num1 + " " + question.operator + " " + question.num2 }</div>;
 	},
 	right() {
-		return <div className='text'>points: { this.props.question.right }</div>
+		return <div className='question'>{ this.props.question.right }</div>
 	},
 	wrong() {
 		const question = this.props.question;
@@ -31,13 +31,12 @@ const Question = React.createClass({
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
-						<button className='button' onClick={this.props.showHint.bind(this)}>Hint</button>
+						<button className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></button>
 						<button className='button' onClick={this.props.pressKey.bind(this, 0)}>0</button>
-						<button className='button' onClick={this.props.resetGame.bind(this)}>End</button>
+						<button className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></button>
 					</div>
 					<div>
 						{ this.right() }
-						{ this.wrong() }
 					</div>
 				</div>
 			</CSSTransitionGroup>

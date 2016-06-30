@@ -23,6 +23,7 @@ ecmascript-runtime@0.2.10
 ejson@1.0.11
 es5-shim@4.5.10
 fastclick@1.0.11
+fortawesome:fontawesome@4.5.0
 geojson-utils@1.0.8
 hot-code-push@1.0.4
 html-tools@1.0.9
@@ -44,6 +45,7 @@ modules@0.6.1
 modules-runtime@0.6.3
 mongo@1.1.7
 mongo-id@1.0.4
+mquandalle:stylus@1.1.1
 npm-mongo@1.4.43
 observe-sequence@1.0.11
 ordered-dict@1.0.7
@@ -57,7 +59,6 @@ spacebars@1.0.11
 spacebars-compiler@1.0.11
 standard-minifier-css@1.0.6
 standard-minifier-js@1.0.6
-stylus@2.511.5
 templating@1.1.9
 templating-tools@1.0.4
 tracker@1.0.13

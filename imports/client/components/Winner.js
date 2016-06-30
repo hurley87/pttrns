@@ -5,9 +5,7 @@ const Winner = React.createClass({
 		return (
 			<div className='container'>
 				<div className='text'>You Win!</div>
-				<div className='wrapper'>
-					<button className='button submit' onClick={this.props.resetGame.bind(this)}>start again</button>
-				</div> 
+				<button className='submit' onClick={this.props.resetGame.bind(this)}>start again</button>
 			</div>
 		)
 	}
