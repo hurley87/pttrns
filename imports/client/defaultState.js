@@ -5,10 +5,10 @@ const max = 5;
 const num1 = 1;
 const num2 = 1;
 const answer = '2';
-const totalTime = 300;
-const winningThreshold = 15;
-const startingLives = 4;
+const totalTime = 10;
+const winningThreshold = 7;
 const startingOperator = '+';
+const startingPenalty = 2;
 
 //set default state of game
 const defaultState = {
@@ -27,13 +27,13 @@ const defaultState = {
 		right: 0,
 		wrong: 0,
 		gameOver: false,
-		lives: startingLives,
 		level: 1,
 		timerOn: false,
 		seconds: totalTime,
 		totalTime: totalTime,
 		winningThreshold: winningThreshold,
-		winner: false
+		winner: false,
+		penalty: startingPenalty
 	}
 }
 

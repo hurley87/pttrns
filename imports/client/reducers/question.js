@@ -92,12 +92,12 @@ function inValidSubmission(state, guess) {
 }
 
 function handleIncorrect(state, submissions) {
-	return state.seconds <= 10 ? noMoreLives(state, submissions) : wrongButAlive(state, submissions)
+	return state.seconds <= state.penalty ? timeRunsOut(state, submissions) : wrongButContinue(state, submissions)
 }
 
 
 //state where a user is wrong but can still play on - need a better name lol
-function wrongButAlive(state, submissions) {
+function wrongButContinue(state, submissions) {
 	return {
 		...state,
 		guess: '',
@@ -105,13 +105,13 @@ function wrongButAlive(state, submissions) {
 		hintMsg: showHintMsg(state), 
 		wrong: state.wrong += 1,
 		submissions: submissions,
-		seconds: state.seconds -= 10
+		seconds: state.seconds -= state.penalty
 
 	};
 }
 
-// state where game is over because a user runs out of lives
-function noMoreLives(state, submissions) {
+// state where game is over because time runs out
+function timeRunsOut(state, submissions) {
 	return {
 		...state,
 		gameOver: true,
