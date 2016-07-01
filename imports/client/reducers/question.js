@@ -13,7 +13,7 @@ export default function question(state=defaultState, action) {
 			}	
 
 		case "TIMER":
-			return state.seconds == 1 ? timeRunsOut(state) : countdown(state);	
+			return state.seconds == 1 ? timeRunsOut(state, state.submissions) : countdown(state);	
 
 		case 'PRESS_KEY':
 			return pressKey(state, action)
@@ -41,13 +41,14 @@ export default function question(state=defaultState, action) {
 
 
 // state where times runs out 
-function timeRunsOut(state) {
+function timeRunsOut(state, submissions) {
 	return {
 		...state,
 		timerOn: false,
 		gameOver: true,
 		seconds: state.totalTime,
-		winner: isWinner(state)
+		winner: isWinner(state),
+		submissions: submissions
 	}
 }
 
@@ -96,7 +97,6 @@ function handleIncorrect(state, submissions) {
 }
 
 
-//state where a user is wrong but can still play on - need a better name lol
 function wrongButContinue(state, submissions) {
 	return {
 		...state,

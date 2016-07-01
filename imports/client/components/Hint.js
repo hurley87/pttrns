@@ -8,9 +8,7 @@ const Hint = React.createClass({
 				<ProgressBarContainer question={this.props.question} />
 				<div className='container'>
 					<div className='text'>{this.props.question.hintMsg}</div> 
-					<div className='wrapper'>
-						<button className='submit' onClick={this.props.continueEvaluation.bind(this)}>continue</button>
-					</div>
+					<button className='submit' onClick={this.props.continueEvaluation.bind(this)}>continue</button>
 				</div>
 			</div>
 		)
