@@ -15,6 +15,7 @@ body
   overflow-x hidden
 
 .container
+  padding 70px 50px
   @media medium
     padding 200px 60px
   @media large
@@ -48,15 +49,14 @@ body
   background $primaryColor
   color #fff
   box-shadow inset 0 0 4px lighten($primaryColor, 5)
-  @media medium
-    font-size 2.5em
-    padding 50px
-  @media large
-    font-size 1em
-    padding 25px
+  padding 20px
+  font-size 1em
+  font-size 0.8em
+  border none
+  border-radius 3px
   
-.hint
-  color #fff
+.buttons
+  height 320px
   
 .button
   margin 0
@@ -65,18 +65,12 @@ body
   -moz-box-shadow    inset 0 0 10px lighten($primaryColor, 5)
   -webkit-box-shadow inset 0 0 10px lighten($primaryColor, 5)
   box-shadow         inset 0 0 4px lighten($primaryColor, 5)
-  line-height 100px
+  line-height 80px
   cursor pointer
   color #fff
   transition box-shadow .3s, text-shadow .5s, color .1s
   text-align center
-  @media medium
-    font-size 3em
-    height 230px
-  @media large
-    font-size 1.5em
-    height 110px
-    float left
+  height 80px
 
 .button:active
 	-moz-box-shadow    inset 0 0 20px $primaryColor
@@ -89,10 +83,6 @@ body
   background-color $primaryColor 
   width 100%
   height 20px
-  @media medium 
-    height 50px
-  @media large
-    height 40px
   
 .bar
 	background-color $secondaryColor
@@ -102,12 +92,7 @@ body
 .question
   color $primaryColor
   text-align center
-  @media medium
-    font-size 5em
-    margin 40px 0px
-  @media large
-    font-size 2.5em
-    margin 20px 0px
+  padding 20px
   
 .question-enter
   opacity 0.01
@@ -135,13 +120,18 @@ body
 .loser 
   h1
     color $primaryColor
-    font-size 1.9em
-    margin-top 0px
+    font-size 0.8em
     font-weight 300
+    margin 20px 0px 30px 0px
   ul
-    margin-bottom 60px
+    margin-bottom 20px
+    padding-left 0px
+    margin-top 10px
   .wrong
     color $primaryColor
     margin-bottom 10px
+    list-style none
+    font-size 0.8em
+    font-weight 300
   
 

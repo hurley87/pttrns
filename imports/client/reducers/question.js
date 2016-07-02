@@ -21,14 +21,15 @@ export default function question(state=defaultState, action) {
 		case "CONTINUE_EVALUATION":
 			return {
 				...state,
-				hint: false
+				hint: false,
+				guess: ''
 			};
 
 		case 'SHOW_HINT':
 			return {
 				...state,
 				hint: true,
-				hintMsg: showHintMsg(state)
+				seconds: state.seconds -= state.penalty
 			}
 
 		case "RESET_GAME":
@@ -81,7 +82,7 @@ function validSubmission(state, guess, answer) {
 	}]) 
 
 	// user gets the question right, assign two random variables to 
-	return guess === answer ? handleCorrect(state, submissions) : handleIncorrect(state, submissions)
+	return guess === answer ? handleCorrect(state, submissions) : handleIncorrect(state, submissions, guess)
 }
 
 // state where a user submits a reponse but not enough digits 
@@ -92,17 +93,16 @@ function inValidSubmission(state, guess) {
 	};
 }
 
-function handleIncorrect(state, submissions) {
-	return state.seconds <= state.penalty ? timeRunsOut(state, submissions) : wrongButContinue(state, submissions)
+function handleIncorrect(state, submissions, guess) {
+	return state.seconds <= state.penalty ? timeRunsOut(state, submissions) : wrongButContinue(state, submissions, guess)
 }
 
 
-function wrongButContinue(state, submissions) {
+function wrongButContinue(state, submissions, guess) {
 	return {
 		...state,
-		guess: '',
+		guess: guess,
 		hint: true,
-		hintMsg: showHintMsg(state), 
 		wrong: state.wrong += 1,
 		submissions: submissions,
 		seconds: state.seconds -= state.penalty
@@ -139,6 +139,12 @@ function handleCorrect(state, submissions) {
 		const smaller = num1;
 		num1 = larger;
 		num2 = smaller;
+
+		// dont show the same question twice
+		while(num2 == state.num1 && num1 == state.num2) {
+			num1 = _.random(state.min, state.max);
+			num2 = _.random(state.min, state.max);
+		}
 	}
 
 	switch(state.operator) {
@@ -209,106 +215,4 @@ function isWinner(state) {
 	return state.right >= state.winningThreshold;
 }
 
-// TODO: add pttrn's hints for each possible question and find a way to refactor
-function showHintMsg(state) {
-	switch(state.operator) {
-		case '+':
-			for(var i = 1; i <= state.max; i++) {
-				for(var n = 1; n <= i; n++) {
-					if(state.num1 == i && state.num2 == n) {
-						return i + n <= 10 ? countOn(i, n) : anchor10(i, n);
-					}
-				}
-			}
-		case '-':
-			for(var i = 1; i <= state.max; i++) {
-				for(var n = 1; n <= i; n++) {
-					if(i > 10 && i - n < 9) {
-						return subtractAnchor10(i, n);
-					} else {
-						if(state.num1 == i && state.num2 == n) {
-							return i - n <= 3 ? countBack(i, n) : equivalentAddition(i, n);
-						}
-					}
-				}
-			}
-		default:
-			return "Opps, that wasn't the right answer. Try that one again.";
-	}
-}
-
-function subtractAnchor10(num1, num2) {
-	const diff = num1 - 10;
-	const decomp = num2 - diff;
-	const answer = num1 - num2;
-	return 'Use Anchor10. Subtract ' + diff + ' from ' + num1 + ' to get to 10. Then subtract another ' + decomp + ' to get to ' + answer;
-}
-
-function equivalentAddition(num1, num2) {
-	return 'What added to ' + num2 + ' gives you ' + num1 + '?';
-}
-
-function countBack(num1, num2) {
-	return 'Use Count-Back. Say "' + countOnWords(countBackArr(num1, num2)) + '".'
-}
-
-function countBackArr(num1, num2) {
-	let arr = [];
-	for(var x = num1; x >= num2; x--) {
-		arr.push(x);
-	}
-	return arr;
-}
-
-function countOn(num1, num2) {
-	return 'Use Count-On. Start with ' + num1 + ' and say "' + countOnWords(countOnArr(num1 , num2)) + '".'
-}
-
-function anchor10(num1, num2) {
-	const sum = num1 + num2;
-	let remainder = 10 - num1;
-	let decomp = num2 - remainder;
-	return 'Use Anchor10. Start with ' + integerToWord(num1) + '. Recognize that ' + num2 + ' is ' + remainder + '+' + decomp + '.' +
-		" So think of " + num1 + '+' + num2 + " as " + num1 + "+" + remainder + '+' + decomp + " = 10+" + decomp + " = " + sum;
-}
-
-function countOnWords(arr) {
-	return arr.map( i => integerToWord(i)).join(', ');
-}
-
-function countOnArr(num1 , num2) {
-	const sum = num1 + num2;
-	let arr = [];
-	for(var x = num1; x <= sum; x++) {
-		arr.push(x);
-	}
-	return arr;
-}
-
-function integerToWord(num) {
-	switch(num) {
-		case 1:
-			return 'one';
-		case 2:
-			return 'two';
-		case 3: 
-			return 'three';
-		case 4:
-			return 'four';
-		case 5: 
-			return 'five';
-		case 6:
-			return 'six';
-		case 7:
-			return 'seven';
-		case 8:
-			return 'eight';
-		case 9:
-			return 'nine';
-		case 10:
-			return 'ten';
-		default:
-			return 'zero';
-	}
-}
 

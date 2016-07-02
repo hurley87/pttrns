@@ -11,7 +11,7 @@ const Loser = React.createClass({
 	wrong(submission, i) {
 		return (
 			<li className='wrong' key={i}>
-				{submission.num1} {submission.operator} {submission.num2} = {submission.answer} You answered {submission.guess}
+				{submission.num1} {submission.operator} {submission.num2} = {submission.answer} <small>( guessed {submission.guess} )</small> 
 			</li>
 		)
 	},
@@ -21,8 +21,8 @@ const Loser = React.createClass({
 		return (
 			<div className='container loser'>
 				<div className='text'>Almost!</div>
-				<h1>You answered {question.right} questions correctly in {question.totalTime} seconds.</h1>
-				{ question.wrong > 0 ? <div className='text'>Errors</div> : null }
+				<h1>{question.right} right <br/> {question.wrong} wrong </h1>
+				{ question.wrong > 0 ? <div className='text'>Review</div> : null }
 				<ul>
 					{ 
 						submissions.map( (submission, i) => {

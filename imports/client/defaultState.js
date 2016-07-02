@@ -22,7 +22,6 @@ const defaultState = {
 		answer: answer,
 		guess: '',
 		hint: false,
-		hintMsg: '',
 		submissions: [],
 		right: 0,
 		wrong: 0,
