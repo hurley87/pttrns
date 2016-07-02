@@ -19,20 +19,23 @@ const Question = React.createClass({
 		[7,8,9,4,5,6,1,2,3].map( i => { keys.push(this.key(i)); });
 		return keys;
 	},
+	pressKey(i){
+		this.props.ClickSound.play();
+		this.props.pressKey(i)
+	},
 	key(i) {
-		return <div className='button' key={i} onClick={this.props.pressKey.bind(this, i)}>{ i }</div>
+		return <div className='button' key={i} onClick={this.pressKey.bind(this, i)}>{ i }</div>
 	},
 	render() {
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<ProgressBarContainer question={this.props.question} />
 				<div className='wrapper'>
-
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
 						<div className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></div>
-						<div className='button' onClick={this.props.pressKey.bind(this, 0)}>0</div>
+						<div className='button' onClick={this.pressKey.bind(this, 0)}>0</div>
 						<div className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></div>
 					</div>
 					<div>
