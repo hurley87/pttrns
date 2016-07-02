@@ -20,7 +20,7 @@ const Question = React.createClass({
 		return keys;
 	},
 	key(i) {
-		return <button className='button' key={i} onClick={this.props.pressKey.bind(this, i)}>{ i }</button>
+		return <div className='button' key={i} onClick={this.props.pressKey.bind(this, i)}>{ i }</div>
 	},
 	render() {
 		return (
@@ -31,9 +31,9 @@ const Question = React.createClass({
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
-						<button className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></button>
-						<button className='button' onClick={this.props.pressKey.bind(this, 0)}>0</button>
-						<button className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></button>
+						<div className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></div>
+						<div className='button' onClick={this.props.pressKey.bind(this, 0)}>0</div>
+						<div className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></div>
 					</div>
 					<div>
 						{ this.right() }
