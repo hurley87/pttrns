@@ -67,6 +67,8 @@ function pressKey(state, action) {
 	const guess = state.guess + action.num;
 	const answer = state.answer;
 
+	new Audio('/click.mp3').play();
+
 	// submission is valid if the answer to the question and their guess have the same number of digits
 	return answer.length == guess.length ? validSubmission(state, guess, answer) : inValidSubmission(state, guess);
 }
@@ -116,7 +118,7 @@ function timeRunsOut(state, submissions) {
 		...state,
 		gameOver: true,
 		seconds: state.totalTime,
-		winner: false,
+		winner: isWinner(state),
 		submissions: submissions
 	};
 }

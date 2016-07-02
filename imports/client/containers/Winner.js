@@ -3,7 +3,7 @@ import Winner from '../components/Winner';
 
 const WinnerContainer = React.createClass({
 	render() {
-		return this.props.question.winner ? <Winner {...this.props} />  : null;
+		return this.props.question.startGame && this.props.question.winner ? <Winner {...this.props} />  : null;
 	}
 });
 

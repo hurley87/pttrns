@@ -8,7 +8,7 @@ const answer = '2';
 const totalTime = 60;
 const winningThreshold = 40;
 const startingOperator = '+';
-const startingPenalty = 2;
+const startingPenalty = 5;
 
 //set default state of game
 const defaultState = {
