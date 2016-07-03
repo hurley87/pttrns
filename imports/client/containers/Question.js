@@ -5,7 +5,7 @@ import Question from '../components/Question';
 
 const QuestionContainer = React.createClass({
 	render() {
-		return this.props.question.startGame && !this.props.question.gameOver && !this.props.question.hint ? <Question ClickSound={new Audio('/click.mp3')} {...this.props} />  : null;
+		return this.props.question.startGame && !this.props.question.gameOver && !this.props.question.hint ? <Question {...this.props} />  : null;
 	}
 });
 

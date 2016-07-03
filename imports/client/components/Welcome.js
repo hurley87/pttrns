@@ -5,7 +5,7 @@ const Welcome = React.createClass({
 		return (
 			<div className='container loser'>
 				<div className='text'>pttrns</div>
-				<h1>Answer {this.props.question.winningThreshold} addition problems in {this.props.question.totalTime} seconds</h1>
+				<h1>Answer {this.props.question.winningThreshold} as fast as you can.</h1>
 				<button className='submit' onClick={this.props.start}>Start</button>
 			</div>
 		)

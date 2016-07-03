@@ -6,7 +6,9 @@ const Hint = React.createClass({
 		const question = this.props.question;
 		return (
 			<div>
-				<ProgressBarContainer question={question} />
+				{
+					// <ProgressBarContainer question={question} />
+				}
 				<div className='container loser'>
 					{ question.guess != "" ? <div className='text'>You guessed { question.guess } :(</div> : null }
 					<h1>{question.num1} {question.operator} {question.num2} = {question.answer }</h1> 

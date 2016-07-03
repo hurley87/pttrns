@@ -20,7 +20,6 @@ const Question = React.createClass({
 		return keys;
 	},
 	pressKey(i){
-		this.props.ClickSound.play();
 		this.props.pressKey(i)
 	},
 	key(i) {
@@ -29,7 +28,10 @@ const Question = React.createClass({
 	render() {
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-				<ProgressBarContainer question={this.props.question} />
+				<div className='question'>
+					<span style={{ 'float' : 'left', 'color':'#56D0B3'}}>{this.props.question.timeTaken}</span>
+					<span style={{ 'float' : 'right', 'color':'#56D0B3'}}>{ this.props.question.right }/{ this.props.question.winningThreshold }</span>
+				</div>
 				<div className='wrapper'>
 					{ this.question() }
 					<div className='buttons'>
@@ -37,9 +39,6 @@ const Question = React.createClass({
 						<div className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></div>
 						<div className='button' onClick={this.pressKey.bind(this, 0)}>0</div>
 						<div className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></div>
-					</div>
-					<div>
-						{ this.right() }
 					</div>
 				</div>
 			</CSSTransitionGroup>

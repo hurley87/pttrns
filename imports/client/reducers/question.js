@@ -56,7 +56,8 @@ function timeRunsOut(state, submissions) {
 function countdown(state) {
 	return {
 		...state,
-		seconds: state.seconds -= 1
+		seconds: state.seconds -= 1,
+		timeTaken: state.timeTaken += 1
 	}
 }
 
@@ -123,6 +124,17 @@ function timeRunsOut(state, submissions) {
 
 // TODO: refactor this
 function handleCorrect(state, submissions) {
+
+	if(state.right == state.winningThreshold - 1) {
+		return {
+			...state,
+			gameOver: true,
+			submissions: submissions,
+			winner: true,
+			right: state.right + 1,
+			finalTime: state.timeTaken
+		}
+	}
 
 	let num1 = _.random(state.min, state.max);
 	let num2 = _.random(state.min, state.max);
