@@ -5,7 +5,7 @@ import ProgressBarContainer from '../containers/ProgressBar';
 const Question = React.createClass({
 	question() {
 		const question = this.props.question;
-		return <div className='question'>{ question.num1 + " " + question.operator + " " + question.num2 } = { question.guess }</div>;
+		return <div style={{ 'font-size': '1.5em'}} className='question'>{ question.num1 + " " + question.operator + " " + question.num2 } = { question.guess }</div>;
 	},
 	right() {
 		return <div className='question'>{ this.props.question.right }</div>
