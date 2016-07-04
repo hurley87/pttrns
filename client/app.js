@@ -1,11 +1,15 @@
 import React  from 'react';
 import { render }  from 'react-dom';
 import { Provider } from 'react-redux';
-import Store from '../imports/client/store';
+import Store, { history } from '../imports/client/store';
 import Pttrns from './Pttrns';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../imports/client/actions/actionCreators';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+// view components
+import Signup from '../imports/client/components/Signup'
 
 function mapStateToProps(state) {
   return state;
@@ -17,19 +21,19 @@ function mapDispachToProps(dispatch) {
 
 const PttrnsApp = connect(mapStateToProps, mapDispachToProps)(Pttrns);
 
-function App() {
-  return (
-    <div className="pttrns-container">
-      <Provider store={Store}>
-        <PttrnsApp />
-      </Provider>
-    </div>
-  );
-}
+const router = (
+  <Provider store={Store}>
+    <Router history={history}>
+      <Route path='/' component={Signup}></Route>
+      <Route path='/game' component={PttrnsApp}></Route>  
+    </Router>
+  </Provider>
+
+)
 
 Meteor.startup(()=> {
   render(
-    <App />,
+    router,
     document.getElementById('app')
   );
 });
