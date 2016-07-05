@@ -1,17 +1,14 @@
 import React from 'react';
 import { Link, Router, browserHistory } from 'react-router'
 import { Form, ValidatedInput, RadioGroup, Radio } from 'react-bootstrap-validation';
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 
-const Signup = React.createClass({
+const Login = React.createClass({
 	_handleValidSubmit(values) {
 		const username = values.name;
 		const password = values.password;
-		Accounts.createUser({
-            username,
-            password
-        }, function(err) {
+		Meteor.loginWithPassword(username, password, function(err) {
 	    	if(err) {
 	    		console.log(err)
 	    	} else {
@@ -22,7 +19,7 @@ const Signup = React.createClass({
 	_handleInvalidSubmit(errors, values) {
 	    console.log(errors)
 	},
-	signup() {
+	login() {
 		return (
           <Form
               onValidSubmit={this._handleValidSubmit}
@@ -50,20 +47,10 @@ const Signup = React.createClass({
                   }}
               />
 
-              <ValidatedInput
-                  type='password'
-                  name='password-confirm'
-                  label='Confirm Password'
-                  validate={(val, context) => 
-                    val === context.password
-                  }
-                  errorHelp='Passwords do not match'
-              />
-
               <Button
                 type='submit'
                 className='submit'
-              >Start</Button>
+              >Login</Button>
           </Form>
 		)
 	},
@@ -71,11 +58,11 @@ const Signup = React.createClass({
 		return (
 			<div className='container loser'>
 				<div className='text'>pttrns</div>
-				{ this.signup() }
-				<Link className='signupLink' to='/login'>Login</Link>
+				{ this.login() }
+				<Link className='signupLink' to='/'>Sign Up</Link>
 			</div>
 		)
 	}
 });
 
-export default Signup;
+export default Login;

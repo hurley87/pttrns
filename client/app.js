@@ -9,7 +9,8 @@ import * as actionCreators from '../imports/client/actions/actionCreators';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // view components
-import Signup from '../imports/client/components/Signup'
+import Signup from '../imports/client/components/Signup';
+import Login from '../imports/client/components/Login';
 
 function mapStateToProps(state) {
   return state;
@@ -26,6 +27,7 @@ const router = (
     <Router history={history}>
       <Route path='/' component={Signup}></Route>
       <Route path='/game' component={PttrnsApp}></Route>  
+      <Route path='/login' component={Login}></Route>
     </Router>
   </Provider>
 
