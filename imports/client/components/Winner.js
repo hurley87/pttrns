@@ -9,7 +9,7 @@ const Winner = React.createClass({
 		)
 	},
 	render() {
-		const question = this.props.question;
+		const question = this.props.question;	
 		return (
 			<div className='container loser'>
 				<div className='text'>{question.right} right </div>

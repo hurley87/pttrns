@@ -1,5 +1,6 @@
 import { _ } from 'lodash';
 import defaultState from '../defaultState';
+import { Meteor } from 'meteor/meteor'
 
 export default function question(state=defaultState, action) {
 	switch(action.type) {
@@ -33,6 +34,7 @@ export default function question(state=defaultState, action) {
 			}
 
 		case "RESET_GAME":
+			Meteor.call('insertAnswer', Object.assign({userId: Meteor.userId()}, state));
 			return defaultState.question
 
 		default: 

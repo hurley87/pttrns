@@ -6,7 +6,7 @@ const num1 = 1;
 const num2 = 1;
 const answer = '2';
 const totalTime = 1600;
-const winningThreshold = 40;
+const winningThreshold = 5;
 const startingOperator = '+';
 const startingPenalty = 0;
 
