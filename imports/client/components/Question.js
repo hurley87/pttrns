@@ -1,6 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import ProgressBarContainer from '../containers/ProgressBar';
+import ProgressBar from './ProgressBar';
 
 const Question = React.createClass({
 	question() {
@@ -26,8 +26,12 @@ const Question = React.createClass({
 		return <div className='button' key={i} onClick={this.pressKey.bind(this, i)}>{ i }</div>
 	},
 	render() {
+		const question = this.props.question;
+		const width = parseFloat(question.seconds / question.totalTime * 100);
+		const width2 = parseFloat(this.props.question.right / this.props.question.winningThreshold * 100);
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+				<ProgressBar width={width} />
 				<div className='wrapper'>
 					{ this.question() }
 					<div className='buttons'>
@@ -41,6 +45,7 @@ const Question = React.createClass({
 						<span style={{ 'float' : 'right', 'color':'#56D0B3'}}>{ this.props.question.right }/{ this.props.question.winningThreshold }</span>
 					</div>
 				</div>
+				<ProgressBar style='bottomFixed' width={width2} />
 			</CSSTransitionGroup>
 		)
 	}

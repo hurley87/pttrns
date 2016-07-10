@@ -1,5 +1,4 @@
 import React from 'react';
-import ProgressBar from '../components/ProgressBar';
 import Hint from '../components/Hint';
 
 const HintContainer = React.createClass({

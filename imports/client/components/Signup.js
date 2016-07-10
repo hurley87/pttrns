@@ -6,65 +6,74 @@ import { Accounts } from 'meteor/accounts-base';
 
 const Signup = React.createClass({
 	_handleValidSubmit(values) {
-		const username = values.name;
+		const username = slugify(values.username, '_');
 		const password = values.password;
+    const signUpError = this.props.signUpError;
 		Accounts.createUser({
-            username,
-            password
-        }, function(err) {
-	    	if(err) {
-	    		console.log(err)
-	    	} else {
-	    		browserHistory.push('/game');
-	    	}
-        });
+        username,
+        password
+      }, function(err) {
+    	if(err) {
+    		signUpError(err.reason);
+    	} else {
+        Meteor.call('newUsername', username, function(err) {
+          if(err) {
+            signUpError(err.reason);
+          } else {
+            browserHistory.push('/game');
+          }
+        })
+        
+    	}
+    });
 	},
 	_handleInvalidSubmit(errors, values) {
 	    console.log(errors)
 	},
 	signup() {
 		return (
-          <Form
-              onValidSubmit={this._handleValidSubmit}
-              onInvalidSubmit={this._handleInvalidSubmit}>
 
-              <ValidatedInput
-                  type='text'
-                  label='Name'
-                  name='name'
-                  validate='required,isLength:4:30'
-                  errorHelp={{
-                      required: 'Please enter a username',
-                      isLength: 'Username must be at least 4 characters'
-                  }}
-              />
+          <div>
+            { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
+            <Form
+                onValidSubmit={this._handleValidSubmit}
+                onInvalidSubmit={this._handleInvalidSubmit}>
 
-              <ValidatedInput
-                  type='password'
-                  name='password'
-                  label='Password'
-                  validate='required,isLength:6:30'
-                  errorHelp={{
-                      required: 'Please specify a password',
-                      isLength: 'Password must be at least 6 characters'
-                  }}
-              />
+                <ValidatedInput
+                    type='text'
+                    label='Username'
+                    name='username'
+                    validate='required,isLength:6:30'
+                    errorHelp={{
+                        required: 'Please specify a password',
+                        isLength: 'Password must be at least 6 characters'
+                    }}
+                />
 
-              <ValidatedInput
-                  type='password'
-                  name='password-confirm'
-                  label='Confirm Password'
-                  validate={(val, context) => 
-                    val === context.password
-                  }
-                  errorHelp='Passwords do not match'
-              />
+                <ValidatedInput
+                    type='password'
+                    name='password'
+                    label='Password'
+                    validate='required,isLength:6:30'
+                    errorHelp={{
+                        required: 'Please specify a password',
+                        isLength: 'Password must be at least 6 characters'
+                    }}
+                />
 
-              <Button
-                type='submit'
-                className='submit'
-              >Start</Button>
-          </Form>
+                <ValidatedInput
+                    type='password'
+                    name='password-confirm'
+                    label='Confirm Password'
+                    validate={(val, context) => 
+                      val === context.password
+                    }
+                    errorHelp='Passwords do not match'
+                />
+
+                <Button type='submit' className='submit'>Sign Up</Button>
+            </Form>
+          </div>
 		)
 	},
 	render() {

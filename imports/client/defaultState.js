@@ -5,7 +5,7 @@ const max = 9;
 const num1 = 1;
 const num2 = 1;
 const answer = '2';
-const totalTime = 1600;
+const totalTime = 60;
 const winningThreshold = 40;
 const startingOperator = '+';
 const startingPenalty = 0;
@@ -34,6 +34,10 @@ const defaultState = {
 		winningThreshold: winningThreshold,
 		winner: false,
 		penalty: startingPenalty
+	},
+	userState: {
+		error: false,
+		errorMsg: ''
 	}
 }
 

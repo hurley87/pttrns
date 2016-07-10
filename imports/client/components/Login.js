@@ -6,11 +6,12 @@ import { Accounts } from 'meteor/accounts-base';
 
 const Login = React.createClass({
 	_handleValidSubmit(values) {
-		const username = values.name;
+		const username = values.username;
 		const password = values.password;
+    const signUpError = this.props.signUpError;
 		Meteor.loginWithPassword(username, password, function(err) {
 	    	if(err) {
-	    		console.log(err)
+          signUpError(err.reason)
 	    	} else {
 	    		browserHistory.push('/game');
 	    	}
@@ -21,18 +22,20 @@ const Login = React.createClass({
 	},
 	login() {
 		return (
+        <div>
+          { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
           <Form
               onValidSubmit={this._handleValidSubmit}
               onInvalidSubmit={this._handleInvalidSubmit}>
 
               <ValidatedInput
                   type='text'
-                  label='Name'
-                  name='name'
-                  validate='required,isLength:4:30'
+                  label='Username'
+                  name='username'
+                  validate='required,isLength:6:30'
                   errorHelp={{
-                      required: 'Please enter a username',
-                      isLength: 'Username must be at least 4 characters'
+                      required: 'Please specify a password',
+                      isLength: 'Password must be at least 6 characters'
                   }}
               />
 
@@ -52,6 +55,7 @@ const Login = React.createClass({
                 className='submit'
               >Login</Button>
           </Form>
+        </div>
 		)
 	},
 	render() {

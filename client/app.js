@@ -21,13 +21,15 @@ function mapDispachToProps(dispatch) {
 }
 
 const PttrnsApp = connect(mapStateToProps, mapDispachToProps)(Pttrns);
+const SignupContainer = connect(mapStateToProps, mapDispachToProps)(Signup);
+const LoginContainer = connect(mapStateToProps, mapDispachToProps)(Login);
 
 const router = (
   <Provider store={Store}>
     <Router history={history}>
-      <Route path='/' component={Signup}></Route>
+      <Route path='/' component={SignupContainer}></Route>
       <Route path='/game' component={PttrnsApp}></Route>  
-      <Route path='/login' component={Login}></Route>
+      <Route path='/login' component={LoginContainer}></Route>
     </Router>
   </Provider>
 

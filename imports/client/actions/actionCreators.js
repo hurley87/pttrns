@@ -35,6 +35,13 @@ export function timer() {
 	};
 };
 
+export function signUpError(error) {
+	return {
+		type: 'SIGNUP_ERROR',
+		error
+	}
+}
+
 
 // submit game 
 export function insertAnswer(answer) {
