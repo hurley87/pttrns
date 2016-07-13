@@ -34,7 +34,7 @@ const Login = React.createClass({
                   name='username'
                   validate='required,isLength:3:30'
                   errorHelp={{
-                      required: 'Please specify a password',
+                      required: 'Please specify a username',
                       isLength: 'Username must be at least 3 characters'
                   }}
               />
