@@ -8,7 +8,7 @@ const Signup = React.createClass({
 	_handleValidSubmit(values) {
 		const username = slugify(values.username, '_');
 		const password = values.password;
-    const signUpError = this.props.signUpError;
+        const signUpError = this.props.signUpError;
 		Accounts.createUser({
         username,
         password

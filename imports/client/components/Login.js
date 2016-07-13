@@ -32,10 +32,10 @@ const Login = React.createClass({
                   type='text'
                   label='Username'
                   name='username'
-                  validate='required,isLength:6:30'
+                  validate='required,isLength:3:30'
                   errorHelp={{
                       required: 'Please specify a password',
-                      isLength: 'Password must be at least 6 characters'
+                      isLength: 'Username must be at least 3 characters'
                   }}
               />
 
@@ -43,10 +43,10 @@ const Login = React.createClass({
                   type='password'
                   name='password'
                   label='Password'
-                  validate='required,isLength:6:30'
+                  validate='required,isLength:3:30'
                   errorHelp={{
                       required: 'Please specify a password',
-                      isLength: 'Password must be at least 6 characters'
+                      isLength: 'Password must be at least 3 characters'
                   }}
               />
 
@@ -63,7 +63,7 @@ const Login = React.createClass({
 			<div className='container loser'>
 				<div className='text'>pttrns</div>
 				{ this.login() }
-				<Link className='signupLink' to='/'>Sign Up</Link>
+        <div><a className='signupLink' href='https://www.pttrns.ca'>Create a student account at www.pttrns.ca.</a></div>
 			</div>
 		)
 	}

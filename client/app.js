@@ -27,9 +27,9 @@ const LoginContainer = connect(mapStateToProps, mapDispachToProps)(Login);
 const router = (
   <Provider store={Store}>
     <Router history={history}>
-      <Route path='/' component={SignupContainer}></Route>
+      <Route path='/' component={LoginContainer}></Route>
       <Route path='/game' component={PttrnsApp}></Route>  
-      <Route path='/login' component={LoginContainer}></Route>
+      <Route path='/login' component={SignupContainer}></Route>
     </Router>
   </Provider>
 
