@@ -42,6 +42,13 @@ export function signUpError(error) {
 	}
 }
 
+export function updateQuestion(challenge) {
+	return {
+		type: 'UPDATE_QUESTION',
+		challenge
+	}
+}
+
 
 // submit game 
 export function insertAnswer(answer) {

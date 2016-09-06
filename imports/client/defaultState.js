@@ -38,6 +38,10 @@ const defaultState = {
 	userState: {
 		error: false,
 		errorMsg: ''
+	},
+	challenge: {
+		index: true,
+		show: false
 	}
 }
 

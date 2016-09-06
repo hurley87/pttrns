@@ -1,6 +1,7 @@
 import React from 'react';
 import {ReactMeteorData} from 'meteor/react-meteor-data';
 import { Challenges } from '../../collections'
+import { Link } from 'react-router';
 
 const ChallengesList = React.createClass({
 	mixins: [ReactMeteorData],
@@ -13,19 +14,29 @@ const ChallengesList = React.createClass({
 	    }
 	    return data;
 	},
-	render() {
-		console.log(this.data.challenges)
-		const challenges = this.data.challenges;
-		console.log(challenges)
+	update(challenge){
+		this.props.updateQuestion(challenge)
+	},
+	showChallenges(challenges) {
 		return (
 			<div>
 				{
-					challenges.map( item => {
+					challenges.map( challenge => {
 						return (
-							<p>{ item.challenge.reward}</p>
+							<div key={challenge._id}>
+								<Link onClick={this.update.bind(this, challenge)} to={`/challenges/${challenge._id}`}>{ challenge.challenge.reward }</Link>
+							</div> 
 						)
 					})
 				}
+			</div>
+		)
+	},
+	render() {
+		const challenges = this.data.challenges;
+		return (
+			<div className='classList'>
+				{ challenges ? this.showChallenges(challenges) : null }
 			</div>
 		)
 	}

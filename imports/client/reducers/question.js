@@ -33,6 +33,18 @@ export default function question(state=defaultState, action) {
 				seconds: state.seconds -= state.penalty
 			}
 
+		case "UPDATE_QUESTION":
+			let challenge = action.challenge.challenge
+			return {
+				...state,
+				min: parseInt(challenge.min),
+				max: parseInt(challenge.max),
+				operator: challenge.operator,
+				winningThreshold: parseInt(challenge.right),
+				totalTime: parseInt(challenge.time),
+				wrong: parseInt(challenge.wrong)
+			}
+
 		case "RESET_GAME":
 			Meteor.call('insertAnswer', Object.assign({userId: Meteor.userId()}, state));
 			return defaultState.question
