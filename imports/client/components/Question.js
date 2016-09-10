@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import ProgressBar from './ProgressBar';
+import { _ } from 'lodash';
 
 const Question = React.createClass({
 	question() {
@@ -16,7 +17,8 @@ const Question = React.createClass({
 	},
 	keypad() {
 		const keys = [];
-		[7,8,9,4,5,6,1,2,3].map( i => { keys.push(this.key(i)); });
+		this.props.question.answerArray.map( i => { keys.push(this.key(i)); });
+
 		return keys;
 	},
 	pressKey(i){
@@ -33,24 +35,31 @@ const Question = React.createClass({
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<ProgressBar width={width2} />
-				<ProgressBar width={width} />
 				<div className='wrapper'>
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
-						<div className='button' onClick={this.props.resetGame.bind(this)}><i className="fa fa-chevron-left"></i></div>
-						<div className='button' onClick={this.pressKey.bind(this, 0)}>0</div>
-						<div className='button' onClick={this.props.showHint.bind(this)}><i className="fa fa-question"></i></div>
-					</div>
-					<div className='question'>
-						<span style={{ 'float' : 'left', 'color':'#56D0B3'}}>{this.props.question.timeTaken}</span>
-						<span style={{ 'float' : 'right', 'color':'#56D0B3'}}>{ this.props.question.right }/{ this.props.question.winningThreshold }</span>
 					</div>
 				</div>
-				
+				<ProgressBar width={width} />
 			</CSSTransitionGroup>
 		)
 	}
 });
+
+function shuffle(array) {
+  var i = 0
+    , j = 0
+    , temp = null
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+
+  return array;
+}
 
 export default Question;

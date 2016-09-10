@@ -3,10 +3,10 @@
 const min = 1;
 const max = 9;
 const num1 = 1;
-const num2 = 1;
-const answer = '2';
+const num2 = 2;
+const answer = '3';
 const totalTime = 60;
-const winningThreshold = 40;
+const winningThreshold = 42;
 const startingOperator = '+';
 const startingPenalty = 0;
 
@@ -20,6 +20,7 @@ const defaultState = {
 		num1: num1,
 		num2: num2,
 		answer: answer,
+		answerArray: [num1, num2, answer],
 		guess: '',
 		hint: false,
 		submissions: [],

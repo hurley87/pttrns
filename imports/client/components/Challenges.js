@@ -34,9 +34,18 @@ const ChallengesList = React.createClass({
 	},
 	render() {
 		const challenges = this.data.challenges;
+		let newChallenges = [];
+		let pastChallenges = [];
+		if(challenges) {
+			newChallenges = this.data.challenges.filter(challenge => challenge.complete == false)
+			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
+		}
 		return (
 			<div className='classList'>
-				{ challenges ? this.showChallenges(challenges) : null }
+				<h1>New Challenges</h1>
+				{ newChallenges ? this.showChallenges(newChallenges) : null }
+				<h1>Past Challenges</h1>
+				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
 			</div>
 		)
 	}

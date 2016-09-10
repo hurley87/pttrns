@@ -42,7 +42,9 @@ export default function question(state=defaultState, action) {
 				operator: challenge.operator,
 				winningThreshold: parseInt(challenge.right),
 				totalTime: parseInt(challenge.time),
-				wrong: parseInt(challenge.wrong)
+				wrong: parseInt(challenge.wrong),
+				seconds: parseInt(challenge.time),
+				challengeId: action.challenge._id
 			}
 
 		case "RESET_GAME":
@@ -61,6 +63,7 @@ function timeRunsOut(state, submissions) {
 		...state,
 		timerOn: false,
 		gameOver: true,
+		startGame: false,
 		seconds: state.totalTime,
 		winner: isWinner(state),
 		submissions: submissions
@@ -114,6 +117,10 @@ function handleIncorrect(state, submissions, guess) {
 
 
 function wrongButContinue(state, submissions, guess) {
+	console.log(state)
+	if(state.answer.length == guess.length) {
+		guess = ''
+	}
 	return {
 		...state,
 		guess: guess,
@@ -150,26 +157,26 @@ function handleCorrect(state, submissions) {
 		}
 	}
 
-	let num1 = _.random(state.min, state.max);
-	let num2 = _.random(state.min, state.max);
+	const upper = state.max + _.random(0, 5);
+	let num1 = _.random(state.min, upper);
+	let num2 = _.random(state.min, upper);
 
-	// dont show the same question twice
-	while(num1 == state.num1 && num2 == state.num2) {
-		num1 = _.random(state.min, state.max);
-		num2 = _.random(state.min, state.max);
-	}
+	while(num1 == state.answer || num2 == state.answer || num1 == num2) {
+			num2 = _.random(state.min, upper);
+			num1 = _.random(state.min, upper);
 
-	// make sure num1 is greater then num2
-	if(num2 > num1) {
-		const larger = num2;
-		const smaller = num1;
-		num1 = larger;
-		num2 = smaller;
+		// make sure num1 is greater then num2
+		if(num2 > num1) {
+			const larger = num2;
+			const smaller = num1;
+			num1 = larger;
+			num2 = smaller;
 
-		// dont show the same question twice
-		while(num2 == state.num1 && num1 == state.num2) {
-			num1 = _.random(state.min, state.max);
-			num2 = _.random(state.min, state.max);
+			// dont show the same question twice
+			while(num2 == state.num1 && num1 == state.num2) {
+				num1 = _.random(state.min, state.max);
+				num2 = _.random(state.min, state.max);
+			}
 		}
 	}
 
@@ -188,11 +195,13 @@ function handleCorrect(state, submissions) {
 }
 
 function newAdditionQuestion(state, num1, num2, submissions) {
+	const answer = _.add(num1, num2).toString()
 	return {
 		...state,
 		num1: num1,
 		num2: num2,
-		answer: _.add(num1, num2).toString(),
+		answerArray: shuffle([num1, num2, answer]),
+		answer: answer,
 		guess: '',
 		right: state.right += 1,
 		submissions: submissions
@@ -239,6 +248,21 @@ function newDivisionQuestion(state, num1, num2, submissions) {
 
 function isWinner(state) {
 	return state.right >= state.winningThreshold;
+}
+
+function shuffle(array) {
+  var i = 0
+    , j = 0
+    , temp = null
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+
+  return array;
 }
 
 

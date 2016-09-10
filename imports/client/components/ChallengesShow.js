@@ -4,6 +4,8 @@ import { Challenges } from '../../collections'
 import { Link } from 'react-router';
 import StartGame from './StartGame';
 import Question from './Question';
+import Winner from './Winner';
+import Loser from './Loser';
 
 const ChallengesShow = React.createClass({
 	mixins: [ReactMeteorData],
@@ -43,7 +45,6 @@ const ChallengesShow = React.createClass({
 		)
 	},
 	showDetails(){
-		console.log('hey')
 		const challenge = this.data.challenge;
 		return (
 			<div className='classList'>
@@ -52,8 +53,11 @@ const ChallengesShow = React.createClass({
 			</div>
 		)
 	},
+	showGame() {
+		return this.props.question.gameOver ? <Winner {...this.props}/> : <Question {...this.props} />
+	},
 	render() {
-		return !this.props.question.startGame && !this.props.question.gameOver ? this.showDetails() : <Question {...this.props} />;
+		return !this.props.question.startGame ? this.showDetails() : this.showGame();
 	}
 });
 
