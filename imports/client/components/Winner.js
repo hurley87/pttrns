@@ -11,10 +11,11 @@ const Winner = React.createClass({
 	render() {
 		const question = this.props.question;
 		const challengeId = this.props.question.challengeId;
+		console.log(question)
 		return (
 			<div className='container loser'>
 				<div className='text'>{question.right} right </div>
-				<h1>Final time: {question.finalTime} seconds.</h1>
+				<h1>Final time: {question.timeTaken + 1} seconds.</h1>
 				{ question.wrong == 0 ? null : <div className='text'>{question.wrong} wrong</div> }
 				<ul>
 					{ 

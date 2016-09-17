@@ -42,7 +42,7 @@ export default function question(state=defaultState, action) {
 				operator: challenge.operator,
 				winningThreshold: parseInt(challenge.right),
 				totalTime: parseInt(challenge.time),
-				wrong: parseInt(challenge.wrong),
+				wrong: 0,
 				seconds: parseInt(challenge.time),
 				challengeId: action.challenge._id
 			}
