@@ -33,7 +33,7 @@ const ChallengesShow = React.createClass({
 
 		return (
 			<div className='container loser'>
-				<div className='text'>Reward: {ch.reward}</div>
+				<div className='text'>{ch.reward}</div>
 				<h1>You answered {challenge.right} {operator} questions in {challenge.time} seconds.</h1>
 				<div><a className='signupLink' href='/challenges'>Back</a></div>
 			</div>
