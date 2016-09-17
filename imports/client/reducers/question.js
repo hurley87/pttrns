@@ -200,8 +200,7 @@ function newAdditionQuestion(state, num1, num2, submissions) {
 		...state,
 		num1: num1,
 		num2: num2,
-		answerArray: shuffle([num1, num2, answer]),
-		answer: answer,
+		answer: _.add(num1, num2).toString(),
 		guess: '',
 		right: state.right += 1,
 		submissions: submissions

@@ -9,11 +9,12 @@ const Winner = React.createClass({
 		)
 	},
 	render() {
-		const question = this.props.question;	
+		const question = this.props.question;
+		const challengeId = this.props.question.challengeId;
 		return (
 			<div className='container loser'>
 				<div className='text'>{question.right} right </div>
-				<h1>Final time: {this.props.question.finalTime} seconds.</h1>
+				<h1>Final time: {question.finalTime} seconds.</h1>
 				{ question.wrong == 0 ? null : <div className='text'>{question.wrong} wrong</div> }
 				<ul>
 					{ 
@@ -22,7 +23,7 @@ const Winner = React.createClass({
 						})
 					}
 				</ul> 
-				<button className='submit' onClick={this.props.resetGame.bind(this)}>start again</button>
+				<button className='submit' onClick={this.props.resetGame.bind(this, challengeId)}>Back</button>
 			</div>
 		)
 	}

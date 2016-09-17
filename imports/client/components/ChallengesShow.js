@@ -26,30 +26,62 @@ const ChallengesShow = React.createClass({
 			if(this.props.question.gameOver) clearInterval(interval);
 		}, 1000);
 	},
-	show(challenge) {
-		let ch = challenge.challenge;
+	challengeComplete(ch){
+		const challenge = this.data.challenge.challenge;
+		console.log(challenge)
+		const operator = this.questionType(challenge.operator);
+
 		return (
-			<div className='loser'>
-				<h1>{ch.reward}</h1>
-				<h1>{ ch.complete ? <span>Done</span> : <span>Not done</span> }</h1>
-				<h1> max: { ch.max }</h1>
-				<h1> min: { ch.min }</h1>
-				<h1> operator: { ch.operator }</h1>
-				<h1> right: { ch.right }</h1>
-				<h1> time: { ch.time }</h1>
-				<h1> wrong: { ch.wrong }</h1>
-				<div>
-					<button className='submit' onClick={this.start}>Start</button>
-				</div>
+			<div className='container loser'>
+				<div className='text'>Reward: {ch.reward}</div>
+				<h1>You answered {challenge.right} {operator} questions in {challenge.time} seconds.</h1>
+				<div><a className='signupLink' href='/challenges'>Back</a></div>
 			</div>
 		)
+	},
+	questionType(operator) {
+		let type = '';
+		switch(operator) {
+			case '+':
+				type = 'addition';
+				break;
+			case '-':
+				type = 'subtraction';
+				break;
+			case '/': 
+				type = 'division';
+				break;
+			case 'x':
+				type = 'multiplication';
+				break;
+			default:
+				type = '';
+		}
+		return type;
+	},
+	notComplete(ch){
+		const operator = this.questionType(ch.operator);
+		return(
+			<div className='container loser'>
+				<div className='text'>Reward: {ch.reward}</div>
+				<h1>Answer { ch.right } {operator} questions in { ch.time } seconds.</h1>
+				<div>
+					<button className='submit' onClick={this.start}>Accept Challenge</button>
+				</div>
+				<div><a className='signupLink' href='/challenges'>Back</a></div>
+			</div>
+		)
+	},
+	show(challenge) {
+		let ch = challenge.challenge;
+		const complete = challenge.complete;
+		return complete ? this.challengeComplete(ch) : this.notComplete(ch)
 	},
 	showDetails(){
 		const challenge = this.data.challenge;
 		return (
 			<div className='classList'>
 				{challenge ? this.show(challenge) : null}
-				<Link to={`/challenges`}>Back</Link>
 			</div>
 		)
 	},

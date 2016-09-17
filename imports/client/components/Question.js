@@ -17,7 +17,7 @@ const Question = React.createClass({
 	},
 	keypad() {
 		const keys = [];
-		this.props.question.answerArray.map( i => { keys.push(this.key(i)); });
+		[7,8,9,4,5,6,1,2,3].map( i => { keys.push(this.key(i)); });
 
 		return keys;
 	},
@@ -39,6 +39,9 @@ const Question = React.createClass({
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
+						<div className='button'></div>
+						<div className='button' onClick={this.pressKey.bind(this, 0)}>0</div>
+						<div className='button'></div>
 					</div>
 				</div>
 				<ProgressBar width={width} />

@@ -24,7 +24,7 @@ const ChallengesList = React.createClass({
 					challenges.map( challenge => {
 						return (
 							<div key={challenge._id}>
-								<Link onClick={this.update.bind(this, challenge)} to={`/challenges/${challenge._id}`}>{ challenge.challenge.reward }</Link>
+								<Link className='playGame' onClick={this.update.bind(this, challenge)} to={`/challenges/${challenge._id}`}>{ challenge.challenge.reward }</Link>
 							</div> 
 						)
 					})
@@ -41,10 +41,10 @@ const ChallengesList = React.createClass({
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
 		return (
-			<div className='classList'>
-				<h1>New Challenges</h1>
+			<div className='container loser'>
+				<div className='text'>New</div>
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
-				<h1>Past Challenges</h1>
+				<div className='text'>Complete</div>
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
 			</div>
 		)

@@ -3,7 +3,6 @@
 
   Meteor.publish('challenges.student', function(studentId) {
     check(studentId, String);
-    console.log('hey')
     const challenges = Challenges.find({'studentId': studentId });
     return challenges;
   });

@@ -23,9 +23,10 @@ export function continueEvaluation() {
 	};
 };
 
-export function resetGame() {
+export function resetGame(challengeId) {
 	return {
-		type: "RESET_GAME"
+		type: "RESET_GAME",
+		challengeId
 	};
 };
 
