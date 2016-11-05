@@ -63,7 +63,6 @@ const Login = React.createClass({
 			<div className='container loser'>
 				<div className='text'>pttrns</div>
 				{ this.login() }
-        <div><a className='signupLink' href='https://www.pttrns.ca'>Create a student account at www.pttrns.ca.</a></div>
 			</div>
 		)
 	}

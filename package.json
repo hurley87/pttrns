@@ -2,7 +2,8 @@
   "name": "pttrns",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy play.pttrns.ca --settings ./settings.json"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -27,3 +28,4 @@
     "react-router-redux": "^4.0.5"
   }
 }
+
