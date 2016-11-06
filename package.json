@@ -6,6 +6,7 @@
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy play.pttrns.ca --settings ./settings.json"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "classnames": "^2.2.5",
     "lodash": "^4.13.1",
     "mantra-core": "^1.7.0",

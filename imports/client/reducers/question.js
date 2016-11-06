@@ -157,13 +157,12 @@ function handleCorrect(state, submissions) {
 		}
 	}
 
-	const upper = state.max + _.random(0, 5);
-	let num1 = _.random(state.min, upper);
-	let num2 = _.random(state.min, upper);
+	let num1 = _.random(state.min, state.max);
+	let num2 = _.random(state.min, state.max);
 
 	while(num1 == state.answer || num2 == state.answer || num1 == num2) {
-			num2 = _.random(state.min, upper);
-			num1 = _.random(state.min, upper);
+			num2 = _.random(state.min, state.max);
+			num1 = _.random(state.min, state.max);
 
 		// make sure num1 is greater then num2
 		if(num2 > num1) {
