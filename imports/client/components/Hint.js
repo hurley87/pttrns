@@ -8,7 +8,6 @@ const Hint = React.createClass({
 		const width2 = 100 - parseFloat(this.props.question.right / this.props.question.winningThreshold * 100);
 		return (
 			<div>
-				<ProgressBar width={width2} />
 				<ProgressBar width={width} />
 				<div className='container loser'>
 					{ question.guess != "" ? <div className='text'>You guessed { question.guess } :(</div> : null }
