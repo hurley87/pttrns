@@ -49,7 +49,19 @@ export default function question(state=defaultState, action) {
 
 		case "RESET_GAME":
 			Meteor.call('insertAnswer', Object.assign({userId: Meteor.userId()}, state));
-			return defaultState.question
+			return {
+				...state,
+				totalTime: state.totalTime,
+				seconds: state.totalTime,
+				timeTaken: 0,
+				winner: false,
+				penalty: 0,
+				timerOn: false,
+				gameOver: false,
+				startGame: false,
+				wrong: 0,
+				submissions: []
+			}
 
 		default: 
 			return state;
