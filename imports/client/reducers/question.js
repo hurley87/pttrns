@@ -61,7 +61,8 @@ export default function question(state=defaultState, action) {
 				startGame: false,
 				wrong: 0,
 				submissions: [],
-				operator: state.operator
+				operator: state.operator,
+				right: 0
 			}
 
 		default: 
