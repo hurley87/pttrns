@@ -45,12 +45,11 @@ const ChallengesList = React.createClass({
 			newChallenges = this.data.challenges.filter(challenge => challenge.complete == false)
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
-		console.log(pastChallenges.length > 0)
 		return (
 			<div className='container loser'>
-				{ newChallenges ? <div className='text'>New</div> : null}
+				{ newChallenges.length > 0 ? <div className='text'>New</div> : null}
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
-				{ pastChallenges ? <div className='text'>Complete</div> : null}
+				{ pastChallenges.length > 0 ? <div className='text'>Complete</div> : null}
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
 			</div>
 		)
