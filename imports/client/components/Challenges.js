@@ -5,6 +5,11 @@ import { Link } from 'react-router';
 
 const ChallengesList = React.createClass({
 	mixins: [ReactMeteorData],
+	getInitialState() {
+		return {
+			loading: true
+		}
+	},
 	getMeteorData() {
 		var data = {}
 	    var userId = Meteor.userId();
@@ -40,11 +45,12 @@ const ChallengesList = React.createClass({
 			newChallenges = this.data.challenges.filter(challenge => challenge.complete == false)
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
+		console.log(pastChallenges.length > 0)
 		return (
 			<div className='container loser'>
-				<div className='text'>New</div>
+				{ newChallenges ? <div className='text'>New</div> : null}
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
-				<div className='text'>Complete</div>
+				{ pastChallenges ? <div className='text'>Complete</div> : null}
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
 			</div>
 		)
