@@ -173,23 +173,17 @@ function handleCorrect(state, submissions) {
 	let num1 = _.random(state.min, state.max);
 	let num2 = _.random(state.min, state.max);
 
-	while(num1 == state.answer || num2 == state.answer || num1 == num2) {
-			num2 = _.random(state.min, state.max);
-			num1 = _.random(state.min, state.max);
+	while(num2 == state.num2 && num1 == state.num2) {
+		num2 = _.random(state.min, state.max);
+		num1 = _.random(state.min, state.max);
 
-		// make sure num1 is greater then num2
 		if(num2 > num1) {
 			const larger = num2;
 			const smaller = num1;
 			num1 = larger;
 			num2 = smaller;
-
-			// dont show the same question twice
-			while(num2 == state.num1 && num1 == state.num2) {
-				num1 = _.random(state.min, state.max);
-				num2 = _.random(state.min, state.max);
-			}
 		}
+
 	}
 
 	switch(state.operator) {

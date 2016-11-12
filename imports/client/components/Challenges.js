@@ -2,20 +2,17 @@ import React from 'react';
 import {ReactMeteorData} from 'meteor/react-meteor-data';
 import { Challenges } from '../../collections'
 import { Link } from 'react-router';
+import Loading from './Loading'
 
 const ChallengesList = React.createClass({
 	mixins: [ReactMeteorData],
-	getInitialState() {
-		return {
-			loading: true
-		}
-	},
 	getMeteorData() {
 		var data = {}
 	    var userId = Meteor.userId();
 	    var handle = Meteor.subscribe('challenges.student', userId);
 	    if(handle.ready()) {
 	    	data.challenges = Challenges.find({ 'studentId' : userId }).fetch();
+	    	data.challengesReady = handle.ready();
 	    }
 	    return data;
 	},
@@ -45,13 +42,13 @@ const ChallengesList = React.createClass({
 			newChallenges = this.data.challenges.filter(challenge => challenge.complete == false)
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
-		return (
+		return ( this.data.challengesReady ? 
 			<div className='container loser'>
 				{ newChallenges.length > 0 ? <div className='text'>New</div> : null}
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
 				{ pastChallenges.length > 0 ? <div className='text'>Complete</div> : null}
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
-			</div>
+			</div> : <Loading />
 		)
 	}
 });
