@@ -21,6 +21,20 @@ const Login = React.createClass({
 	    console.log(errors)
 	},
 	login() {
+
+    function getParameterByName(name, url) {
+        if (!url) {
+          url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    const username = getParameterByName('username')
 		return (
         <div>
           { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
@@ -32,6 +46,7 @@ const Login = React.createClass({
                   type='text'
                   label='Username'
                   name='username'
+                  value={username}
                   validate='required,isLength:3:30'
                   errorHelp={{
                       required: 'Please specify a username',
@@ -61,7 +76,7 @@ const Login = React.createClass({
 	render() {
 		return (
 			<div className='container loser'>
-				<div className='text'>pttrns</div>
+				<div className='text'>Login to your student account using the same password you used to sign up your parent account.</div>
 				{ this.login() }
 			</div>
 		)
