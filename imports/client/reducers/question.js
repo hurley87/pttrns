@@ -35,16 +35,75 @@ export default function question(state=defaultState, action) {
 
 		case "UPDATE_QUESTION":
 			let challenge = action.challenge.challenge
-			return {
-				...state,
-				min: parseInt(challenge.min),
-				max: parseInt(challenge.max),
-				operator: challenge.operator,
-				winningThreshold: parseInt(challenge.right),
-				totalTime: parseInt(challenge.time),
-				wrong: 0,
-				seconds: parseInt(challenge.time),
-				challengeId: action.challenge._id
+			switch(challenge.operator){
+				case '+':
+					return {
+						...state,
+						min: parseInt(challenge.min),
+						max: parseInt(challenge.max),
+						operator: challenge.operator,
+						winningThreshold: parseInt(challenge.right),
+						totalTime: parseInt(challenge.time),
+						wrong: 0,
+						seconds: parseInt(challenge.time),
+						challengeId: action.challenge._id
+					}
+				break;
+
+				case '-':
+					return {
+						...state,
+						min: parseInt(challenge.min),
+						max: parseInt(challenge.max),
+						operator: challenge.operator,
+						num1: 2,
+						num2: 1,
+						answer: '1',
+						winningThreshold: parseInt(challenge.right),
+						totalTime: parseInt(challenge.time),
+						wrong: 0,
+						seconds: parseInt(challenge.time),
+						challengeId: action.challenge._id
+					}
+				break;
+
+				case 'x':
+					return {
+						...state,
+						min: parseInt(challenge.min),
+						max: parseInt(challenge.max),
+						operator: challenge.operator,
+						num1: 2,
+						num2: 1,
+						answer: '2',
+						winningThreshold: parseInt(challenge.right),
+						totalTime: parseInt(challenge.time),
+						wrong: 0,
+						seconds: parseInt(challenge.time),
+						challengeId: action.challenge._id
+					}
+				break;
+
+				case '/':
+					return {
+						...state,
+						min: parseInt(challenge.min),
+						max: parseInt(challenge.max),
+						operator: challenge.operator,
+						num1: 2,
+						num2: 1,
+						answer: '2',
+						winningThreshold: parseInt(challenge.right),
+						totalTime: parseInt(challenge.time),
+						wrong: 0,
+						seconds: parseInt(challenge.time),
+						challengeId: action.challenge._id
+					}
+				break;
+				default:
+					return {
+						...state
+					}
 			}
 
 		case "RESET_GAME":
@@ -215,6 +274,10 @@ function newAdditionQuestion(state, num1, num2, submissions) {
 }
 
 function newSubtractionQuestion(state, num1, num2, submissions) {
+	if(num2 > num1) {
+		num1 = num2
+		num2 = num1
+	}
 	return {
 		...state,
 		num1: num1,
@@ -227,6 +290,7 @@ function newSubtractionQuestion(state, num1, num2, submissions) {
 }
 
 function newMultiplicationQuestion(state, num1, num2, submissions) {
+	console.log(state, num1, num2)
 	return {
 		...state,
 		num1: num1,

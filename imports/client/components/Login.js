@@ -38,13 +38,15 @@ const Login = React.createClass({
 		return (
         <div>
           { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
+
+
           <Form
               onValidSubmit={this._handleValidSubmit}
               onInvalidSubmit={this._handleInvalidSubmit}>
 
               <ValidatedInput
-                  type='text'
-                  label='Username'
+                  type={username ? 'hidden' : 'text'}
+                  label={ username ? '' : 'Username' }
                   name='username'
                   value={username}
                   validate='required,isLength:3:30'
