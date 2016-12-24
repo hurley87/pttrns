@@ -28,7 +28,6 @@ const ChallengesShow = React.createClass({
 	},
 	challengeComplete(ch){
 		const challenge = this.data.challenge.challenge;
-		console.log(challenge)
 		const operator = this.questionType(challenge.operator);
 
 		return (
@@ -63,7 +62,7 @@ const ChallengesShow = React.createClass({
 		const operator = this.questionType(ch.operator);
 		return(
 			<div className='container loser'>
-				<div className='text'>Reward: {ch.reward}</div>
+				<div className='text'>{ch.reward}</div>
 				<h1>Answer { ch.right } {operator} questions in { ch.time } seconds.</h1>
 				<div>
 					<button className='submit' onClick={this.start}>Accept Challenge</button>

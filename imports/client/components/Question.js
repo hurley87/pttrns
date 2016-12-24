@@ -32,8 +32,6 @@ class Question extends React.Component{
 	}
 	pressKey(i){
 		this.props.pressKey(i)
-		console.log('clear')
-		console.log(this.state.question, 'awesome')
 
 	}
 	key(i) {
@@ -45,14 +43,13 @@ class Question extends React.Component{
 	}
 	render() {
 		const question = this.props.question;
-		console.log(question)
 		const width = parseFloat(question.seconds / question.totalTime * 100);
 		const width2 = 100 - parseFloat(this.props.question.right / this.props.question.winningThreshold * 100);
 		return (
 			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<ProgressBar width={width2} />
 				<ProgressBar width={width} />
-				<div style={{ border: '5px solid ' + question.borderColor }} className='wrapper'>
+				<div style={{ borderRight: '5px solid ' + question.borderColor, borderLeft: '5px solid ' + question.borderColor }} className='wrapper'>
 					{ this.question() }
 					<div className='buttons'>
 						{ this.keypad() }
