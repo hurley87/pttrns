@@ -17,7 +17,8 @@ export default function question(state=defaultState, action) {
 			return state.seconds == 1 ? timeRunsOut(state, state.submissions) : countdown(state);	
 
 		case 'PRESS_KEY':
-			return pressKey(state, action)
+			const newState = pressKey(state, action)
+			return newState
 
 		case "CONTINUE_EVALUATION":
 			return {
@@ -190,7 +191,6 @@ function handleIncorrect(state, submissions, guess) {
 
 
 function wrongButContinue(state, submissions, guess) {
-	console.log(state)
 	if(state.answer.length == guess.length) {
 		guess = ''
 	}
@@ -200,8 +200,8 @@ function wrongButContinue(state, submissions, guess) {
 		hint: true,
 		wrong: state.wrong += 1,
 		submissions: submissions,
-		seconds: state.seconds -= state.penalty
-
+		seconds: state.seconds -= state.penalty,
+		borderColor: 'red'
 	};
 }
 
@@ -218,7 +218,6 @@ function timeRunsOut(state, submissions) {
 
 // TODO: refactor this
 function handleCorrect(state, submissions) {
-
 	if(state.right == state.winningThreshold - 1) {
 		return {
 			...state,
@@ -233,7 +232,7 @@ function handleCorrect(state, submissions) {
 	let num1 = _.random(state.min, state.max);
 	let num2 = _.random(state.min, state.max);
 
-	while(num2 == state.num2 && num1 == state.num2) {
+	while(num2 == state.num2 && num1 == state.num1 || num1 == state.num2 && num2 == state.num1) {
 		num2 = _.random(state.min, state.max);
 		num1 = _.random(state.min, state.max);
 
@@ -269,7 +268,8 @@ function newAdditionQuestion(state, num1, num2, submissions) {
 		answer: _.add(num1, num2).toString(),
 		guess: '',
 		right: state.right += 1,
-		submissions: submissions
+		submissions: submissions,
+		borderColor: '#fff'
 	};
 }
 
@@ -285,12 +285,12 @@ function newSubtractionQuestion(state, num1, num2, submissions) {
 		answer: _.subtract(num1, num2).toString(),
 		guess: '',
 		right: state.right += 1,
-		submissions: submissions
+		submissions: submissions,
+		borderColor: '#fff'
 	};	
 }
 
 function newMultiplicationQuestion(state, num1, num2, submissions) {
-	console.log(state, num1, num2)
 	return {
 		...state,
 		num1: num1,
@@ -298,7 +298,8 @@ function newMultiplicationQuestion(state, num1, num2, submissions) {
 		answer: _.multiply(num1, num2).toString(),
 		guess: '',
 		right: state.right += 1,
-		submissions: submissions
+		submissions: submissions,
+		borderColor: '#fff'
 	};	
 }
 
@@ -312,7 +313,8 @@ function newDivisionQuestion(state, num1, num2, submissions) {
 		answer: answer,
 		guess: '',
 		right: state.right += 1,
-		submissions: submissions
+		submissions: submissions,
+		borderColor: '#fff'
 	};	
 }
 

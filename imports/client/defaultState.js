@@ -34,7 +34,9 @@ const defaultState = {
 		timeTaken: 0,
 		winningThreshold: winningThreshold,
 		winner: false,
-		penalty: startingPenalty
+		penalty: startingPenalty,
+		borderColor: '#fff'
+
 	},
 	userState: {
 		error: false,
