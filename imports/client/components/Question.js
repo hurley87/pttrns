@@ -26,7 +26,7 @@ class Question extends React.Component{
 	}
 	keypad() {
 		const keys = [];
-		[7,8,9,4,5,6,1,2,3].map( i => { keys.push(this.key(i)); });
+		[1,2,3,4,5,6,7,8,9].map( i => { keys.push(this.key(i)); });
 
 		return keys;
 	}
