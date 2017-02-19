@@ -10,7 +10,7 @@ const Login = React.createClass({
 		const password = values.password;
     const gameId = values.gameId;
     const signUpError = this.props.signUpError;
-		Meteor.loginWithPassword(username, password function(err) {
+		Meteor.loginWithPassword(username, password, function(err) {
 	    	if(err) {
           signUpError(err.reason)
 	    	} else {
