@@ -8,12 +8,13 @@ const Login = React.createClass({
 	_handleValidSubmit(values) {
 		const username = values.username;
 		const password = values.password;
+    const gameId = values.gameId;
     const signUpError = this.props.signUpError;
-		Meteor.loginWithPassword(username, password, function(err) {
+		Meteor.loginWithPassword(username, password function(err) {
 	    	if(err) {
           signUpError(err.reason)
 	    	} else {
-	    		browserHistory.push('/game');
+          gameId ? browserHistory.push(`/challenges/${gameId}`) : browserHistory.push('/game')
 	    	}
         });
 	},
@@ -35,6 +36,7 @@ const Login = React.createClass({
     }
 
     const username = getParameterByName('username')
+    const gameId = getParameterByName('gameId')
 		return (
         <div>
           { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
@@ -54,6 +56,12 @@ const Login = React.createClass({
                       required: 'Please specify a username',
                       isLength: 'Username must be at least 3 characters'
                   }}
+              />
+
+              <ValidatedInput
+                  type='hidden'
+                  name='gameId'
+                  value={gameId}
               />
 
               <ValidatedInput
