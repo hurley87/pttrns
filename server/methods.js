@@ -6,9 +6,10 @@ Meteor.methods({
 	insertAnswer(answer) {
 		check(answer, Object);
 		const answers  = Answers.insert(answer);
+		Challenges.update(answer.challengeId, { $set: { pending: false, attempted: true } });
 		if(answer.winner) {
 			Challenges.update(answer.challengeId, {
-		      $set: { complete: true },
+		      $set: { complete: true, attempted: false },
 		    });
 		}
 		return answers;	
