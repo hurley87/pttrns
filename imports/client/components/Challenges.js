@@ -36,7 +36,6 @@ const ChallengesList = React.createClass({
 	},
 	render() {
 		const challenges = this.data.challenges;
-		console.log(challenges)
 		let newChallenges = [];
 		let pastChallenges = [];
 		if(challenges) {
