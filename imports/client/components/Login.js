@@ -14,7 +14,7 @@ const Login = React.createClass({
 	    	if(err) {
           signUpError(err.reason)
 	    	} else {
-          gameId ? browserHistory.push(`/challenges/${gameId}`) : browserHistory.push('/game')
+          gameId ? browserHistory.push(`/challenges`) : browserHistory.push('/game')
 	    	}
         });
 	},
