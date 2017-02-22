@@ -36,14 +36,19 @@ const ChallengesList = React.createClass({
 	},
 	render() {
 		const challenges = this.data.challenges;
+		console.log(challenges)
 		let newChallenges = [];
 		let pastChallenges = [];
 		if(challenges) {
-			newChallenges = this.data.challenges.filter(challenge => challenge.complete == false)
+			newChallenges = this.data.challenges.filter(challenge => challenge.pending == true)
+			attemptedChallenges = this.data.challenges.filter(challenge => challenge.attempted == true)
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
 		return ( this.data.challengesReady ? 
 			<div className='container loser'>
+				{ newChallenges == 0 && attemptedChallenges == 0 ? <div className='text'>No new challenges</div> : null}
+				{ attemptedChallenges.length > 0 ? <div className='text'>Continue</div> : null}
+				{ attemptedChallenges ? this.showChallenges(attemptedChallenges) : null }
 				{ newChallenges.length > 0 ? <div className='text'>New</div> : null}
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
 				{ pastChallenges.length > 0 ? <div className='text'>Complete</div> : null}
