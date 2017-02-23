@@ -6,6 +6,7 @@ import StartGame from './StartGame';
 import Question from './Question';
 import Winner from './Winner';
 import Loser from './Loser';
+import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
 
 const ChallengesShow = React.createClass({
 	mixins: [ReactMeteorData],
@@ -31,11 +32,23 @@ const ChallengesShow = React.createClass({
 		const operator = this.questionType(challenge.operator);
 
 		return (
-			<div className='container loser'>
-				<div className='text'>{ch.reward}</div>
-				<h1>You answered {challenge.right} {operator} questions in {challenge.time} seconds.</h1>
-				<div><a className='signupLink' href='/challenges'>Back</a></div>
-			</div>
+	      <div>
+	        <Grid>
+	          <Row className='header'>
+	            <Col md={4} mdOffset={4}>
+	              <h2>{ch.reward}</h2>
+	              <p>You answered {challenge.right} {operator} questions in {challenge.time} seconds.</p>
+	            </Col>
+	          </Row>
+	          <Row>
+	            <Col md={4} mdOffset={4}>
+			        <div>
+						<a className='button' href='/challenges'>Back</a>
+					</div>
+	            </Col>
+	          </Row>
+	        </Grid>
+	      </div>
 		)
 	},
 	questionType(operator) {
@@ -61,14 +74,37 @@ const ChallengesShow = React.createClass({
 	notComplete(ch){
 		const operator = this.questionType(ch.operator);
 		return(
-			<div className='container loser'>
-				<div className='text'>{ch.reward}</div>
-				<h1>Answer { ch.right } {operator} questions in { ch.time } seconds.</h1>
-				<div>
-					<button className='submit' onClick={this.start}>Accept Challenge</button>
-				</div>
-				<div><a className='signupLink' href='/challenges'>Back</a></div>
-			</div>
+	      <div>
+			  <Navbar>
+			    <Navbar.Header>
+			      <Navbar.Brand>
+			        <a href="/">pttrns</a>
+			      </Navbar.Brand>
+			      <Navbar.Toggle />
+			    </Navbar.Header>
+			    <Navbar.Collapse>
+			      <Nav pullRight>
+			      { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
+			      </Nav>
+			    </Navbar.Collapse>
+			  </Navbar>
+	        <Grid>
+	          <Row className='header'>
+	            <Col md={4} mdOffset={4}>
+	              <h2>{ch.reward}</h2>
+	              <p>Answer { ch.right } {operator} questions in { ch.time } seconds.</p>
+	            </Col>
+	          </Row>
+	          <Row>
+	            <Col md={4} mdOffset={4}>
+			        <div>
+						<button className='button' onClick={this.start}>Accept Challenge</button>
+					</div>
+					<div><a className='signupLink' href='/challenges'>Back</a></div>
+	            </Col>
+	          </Row>
+	        </Grid>
+	      </div>
 		)
 	},
 	show(challenge) {

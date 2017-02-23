@@ -1,0 +1,63 @@
+/* form controls */
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="password"].form-control {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  height: 39px; }
+  input[type="text"].form-control::-webkit-input-placeholder,
+  input[type="email"].form-control::-webkit-input-placeholder,
+  input[type="password"].form-control::-webkit-input-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  input[type="text"].form-control:-moz-placeholder,
+  input[type="email"].form-control:-moz-placeholder,
+  input[type="password"].form-control:-moz-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  input[type="text"].form-control::-moz-placeholder,
+  input[type="email"].form-control::-moz-placeholder,
+  input[type="password"].form-control::-moz-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  input[type="text"].form-control:-ms-input-placeholder,
+  input[type="email"].form-control:-ms-input-placeholder,
+  input[type="password"].form-control:-ms-input-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  input[type="text"].form-control:focus,
+  input[type="email"].form-control:focus,
+  input[type="password"].form-control:focus {
+    border-color: #98D2FF;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(166, 205, 236, 0.6); }
+
+textarea.form-control {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2); }
+  textarea.form-control::-webkit-input-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  textarea.form-control:-moz-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  textarea.form-control::-moz-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  textarea.form-control:-ms-input-placeholder {
+    color: #B1B1B1;
+    font-weight: 400;
+    font-size: 14px; }
+  textarea.form-control:focus {
+    border-color: #98D2FF;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(166, 205, 236, 0.6); }

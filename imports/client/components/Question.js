@@ -2,6 +2,8 @@ import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import ProgressBar from './ProgressBar';
 import { _ } from 'lodash';
+import { Col, Row, Grid, Input, ButtonInput} from 'react-bootstrap';
+
 
 class Question extends React.Component{
 	constructor(props) {
@@ -15,7 +17,7 @@ class Question extends React.Component{
 	}
 	question() {
 		const question = this.props.question;
-		return <div style={{ 'fontSize': '1.2em'}} className='question'>{ question.num1 + " " + question.operator + " " + question.num2 } = { question.guess }</div>;
+		return <div style={{ 'fontSize': '2.2em'}} className='question'>{ question.num1 + " " + question.operator + " " + question.num2 } = { question.guess }</div>;
 	}
 	right() {
 		return <div className='question'>{ this.props.question.right }</div>
@@ -35,7 +37,7 @@ class Question extends React.Component{
 
 	}
 	key(i) {
-		return <div className='button' key={i} onClick={this.pressKey.bind(this, i)}>
+		return <div className='gameButton' key={i} onClick={this.pressKey.bind(this, i)}>
 				<div className='btn-inner'>
 					{ i }
 				</div>
@@ -46,23 +48,29 @@ class Question extends React.Component{
 		const width = parseFloat(question.seconds / question.totalTime * 100);
 		const width2 = 100 - parseFloat(this.props.question.right / this.props.question.winningThreshold * 100);
 		return (
-			<CSSTransitionGroup transitionName="question" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-				<ProgressBar width={width2} />
-				<ProgressBar width={width} />
-				<div style={{ borderRight: '5px solid ' + question.borderColor, borderLeft: '5px solid ' + question.borderColor }} className='wrapper'>
-					{ this.question() }
-					<div className='buttons'>
-						{ this.keypad() }
-						<div className='button white'></div>
-						<div className='button' onClick={this.pressKey.bind(this, 0)}>
-							<div className='btn-inner'>
-							0
+	      <div>
+	        <Grid>
+	          <Row>
+	            <Col style={{ padding: '0px'}} md={4} mdOffset={4}>
+					<ProgressBar width={width2} />
+					<ProgressBar width={width} />
+					<div style={{ border: '5px solid ' + question.borderColor }} className='wrapper'>
+						{ this.question() }
+						<div className='gameButtons'>
+							{ this.keypad() }
+							<div className='gameButton white'></div>
+							<div className='gameButton' onClick={this.pressKey.bind(this, 0)}>
+								<div className='btn-inner'>
+								0
+								</div>
 							</div>
+							<div className='gameButton white'></div>
 						</div>
-						<div className='button white'></div>
 					</div>
-				</div>
-			</CSSTransitionGroup>
+	            </Col>
+	          </Row>
+	        </Grid>
+	      </div>
 		)
 	}
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-import {ReactMeteorData} from 'meteor/react-meteor-data';
+import { ReactMeteorData} from 'meteor/react-meteor-data';
 import { Challenges } from '../../collections'
 import { Link } from 'react-router';
 import Loading from './Loading'
+import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
 
 const ChallengesList = React.createClass({
 	mixins: [ReactMeteorData],
@@ -26,7 +27,7 @@ const ChallengesList = React.createClass({
 					challenges.map( challenge => {
 						return (
 							<div key={challenge._id}>
-								<Link className='playGame' onClick={this.update.bind(this, challenge)} to={`/challenges/${challenge._id}`}>{ challenge.challenge.reward }</Link>
+								<Link className='button text-center' onClick={this.update.bind(this, challenge)} to={`/challenges/${challenge._id}`}>{ challenge.challenge.reward }</Link>
 							</div> 
 						)
 					})
@@ -44,7 +45,23 @@ const ChallengesList = React.createClass({
 			pastChallenges = this.data.challenges.filter(challenge => challenge.complete == true)
 		}
 		return ( this.data.challengesReady ? 
-			<div className='container loser'>
+        <div>
+		  <Navbar>
+		    <Navbar.Header>
+		      <Navbar.Brand>
+		        <a href="/">pttrns</a>
+		      </Navbar.Brand>
+		      <Navbar.Toggle />
+		    </Navbar.Header>
+		    <Navbar.Collapse>
+		      <Nav pullRight>
+		      { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
+		      </Nav>
+		    </Navbar.Collapse>
+		  </Navbar>
+        <Grid>
+          <Row>
+            <Col md={4} mdOffset={4}>
 				{ newChallenges == 0 && attemptedChallenges == 0 ? <div className='text'>No new challenges</div> : null}
 				{ attemptedChallenges.length > 0 ? <div className='text'>Continue</div> : null}
 				{ attemptedChallenges ? this.showChallenges(attemptedChallenges) : null }
@@ -52,7 +69,9 @@ const ChallengesList = React.createClass({
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
 				{ pastChallenges.length > 0 ? <div className='text'>Complete</div> : null}
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
-			</div> : <Loading />
+			</Col> 
+		   </Row>
+		</Grid></div> : <Loading />
 		)
 	}
 });

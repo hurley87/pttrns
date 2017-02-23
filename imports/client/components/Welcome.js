@@ -1,5 +1,6 @@
 import React from 'react';
 import ChallengesList from './Challenges';
+import { Col, Row, Grid, Input, ButtonInput} from 'react-bootstrap';
 
 const Welcome = React.createClass({
 	startGame() {
@@ -13,9 +14,20 @@ const Welcome = React.createClass({
 	},
 	render() {
 		return (
-			<div className='container loser'>
-				<ChallengesList {...this.props} />
-			</div>
+	      <div>
+	        <Grid>
+	          <Row className='header'>
+	            <Col md={4} mdOffset={4}>
+	              <h2>pttrns</h2>
+	            </Col>
+	          </Row>
+	          <Row>
+	            <Col md={4} mdOffset={4}>
+			        <ChallengesList {...this.props} />
+	            </Col>
+	          </Row>
+	        </Grid>
+	      </div>
 		)
 	}
 });

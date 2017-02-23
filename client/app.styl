@@ -1,7 +1,7 @@
 @import 'jeet'
 
-$primaryColor = #5188BF
-$secondaryColor = #56D0B3
+$primaryColor = #4DB2E7
+$secondaryColor = #fff
 
 medium = 'screen and (min-width: 768px)'
 large = 'screen and (min-width: 992px)'
@@ -14,34 +14,6 @@ body
   font-size 1.5em
   overflow-x hidden
 
-.container
-  padding 50px 15px
-  @media medium
-    padding 200px 60px
-  @media large
-    padding 100px 30px
-    width 400px 
-    margin auto    
-
-.wrapper
-  @media medium
-    margin 1em auto
-  @media large
-    margin 0px auto
-    padding 40px 30px
-    width 450px 
-    padding-top 0px
-     
-.text
-  color $primaryColor
-  text-shadow 0 0 1px rgba(255,255,255,.75)
-  text-align left
-  @media medium 
-    font-size 3em
-    margin-bottom 40px
-  @media large
-    font-size 1em
-    margin-bottom 20px
   
 .submit
   width 100%
@@ -51,15 +23,14 @@ body
   box-shadow inset 0 0 4px lighten($primaryColor, 5)
   padding 20px
   font-size 1em
-  font-size 0.8em
   border none
   border-radius 3px
   margin-top 10px
   
-.buttons
+.gameButtons
   height 360px
   
-.button
+.gameButton
   margin 0
   column(1/3, cycle: 3, gutter: 0)
   line-height 80px
@@ -76,6 +47,7 @@ body
   width 80px
   margin auto
   border-radius 50px
+  font-size 2em
   
 
 .white 
@@ -84,23 +56,25 @@ body
 .wrapper
   padding 0 20px
 
-.button:active
-	-moz-box-shadow    inset 0 0 20px $primaryColor
-	-webkit-box-shadow inset 0 0 20px $primaryColor
-	box-shadow         inset 0 0 20px $primaryColor
-	color #66ccff
-	text-shadow 0 0 5px rgba(255, 255, 255, .5)
+.gameButton:active
+  -moz-box-shadow    inset 0 0 20px $primaryColor
+  -webkit-box-shadow inset 0 0 20px $primaryColor
+  box-shadow         inset 0 0 20px $primaryColor
+  color #66ccff
+  text-shadow 0 0 5px rgba(255, 255, 255, .5)
   
 .progress
   background-color $primaryColor 
   width 100%
   height 20px
   padding 5px
+  margin-bottom 0px
+  border-radius 0px
   
 .bar
-	background-color $secondaryColor
-	height 100%
-	width 100%
+  background-color $secondaryColor
+  height 100%
+  width 100%
 
 .question
   color $primaryColor
@@ -124,70 +98,11 @@ body
   
 
 .question-appear
-	opacity 0.01
+  opacity 0.01
   
 .question-appear.question-appear-active
-	opacity 1
-	transition opacity .5s ease-in
+  opacity 1
+  transition opacity .5s ease-in
   
-.loser 
-  h1
-    color $primaryColor
-    font-size 0.8em
-    font-weight 300
-    margin 20px 0px 30px 0px
-  ul
-    margin-bottom 20px
-    padding-left 0px
-    margin-top 10px
-  .wrong
-    color $primaryColor
-    margin-bottom 10px
-    list-style none
-    font-size 0.8em
-    font-weight 300
-
-.help-block 
-  color red
-  font-size 0.5em
-  position relative
-  bottom 10px
-  
-.control-label 
-  width 100%
-  display block
-  color $primaryColor
-  margin 10px 0px 2px 0px
-  font-size 0.7em
-
-.form-control 
-  width 95%
-  display block
-  border-radius 3px
-  padding 10px
-  margin-bottom 10px
-  font-size 0.7em
-  border 1px solid #ccc
-  
-.signupLink 
-  font-size 0.7em
-  color $primaryColor
-  text-decoration none
-  margin-top 30px
-  display block 
-
-.error
-  color red
-  font-size 13px
-  
-
-.playGame 
-  text-decoration none
-  color white
-  display block
-  background-color $primaryColor
-  padding 20px
-  margin 15px 0px
-  border-radius 3px
 
 

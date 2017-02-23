@@ -32,7 +32,7 @@ const router = (
   <Provider store={Store}>
     <Router history={history}>
       <Route path='/' component={LoginContainer}></Route>
-      <Route path='/game' component={PttrnsApp}></Route>  
+      <Route path='/game' component={ChallengesListContainer}></Route>  
       <Route path='/login' component={SignupContainer}></Route>
       <Route path='/challenges' component={ChallengesListContainer}></Route>
       <Route path='/challenges/:challengeId' component={ChallengesShowContainer}></Route>

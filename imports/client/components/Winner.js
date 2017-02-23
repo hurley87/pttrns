@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Row, Grid, Input, ButtonInput} from 'react-bootstrap';
 
 const Winner = React.createClass({
 	wrong(submission, i) {
@@ -11,21 +12,29 @@ const Winner = React.createClass({
 	render() {
 		const question = this.props.question;
 		const challengeId = this.props.question.challengeId;
-
 		return (
-			<div className='container loser'>
-				<div className='text'>{question.right} right </div>
-				<h1>Final time: {question.timeTaken + 1} seconds.</h1>
-				{ question.wrong == 0 ? null : <div className='text'>{question.wrong} wrong</div> }
-				<ul>
-					{ 
-						question.submissions.map( (submission, i) => {
-							return submission.guess == submission.answer ? null : this.wrong(submission, i)
-						})
-					}
-				</ul> 
-				<button className='submit' onClick={this.props.resetGame.bind(this, challengeId)}>Back</button>
-			</div>
+	      <div>
+	        <Grid>
+	          <Row className='header'>
+	            <Col md={4} mdOffset={4}>
+	              <h2>{question.right} right </h2>
+	              <p>{question.timeTaken + 1} seconds. { question.wrong == 0 ? null : question.wrong + " wrong "}</p>
+	            </Col>
+	          </Row>
+	          <Row>
+	            <Col md={4} mdOffset={4}>
+					<ul>
+						{ 
+							question.submissions.map( (submission, i) => {
+								return submission.guess == submission.answer ? null : this.wrong(submission, i)
+							})
+						}
+					</ul> 
+			        <button className='button' onClick={this.props.resetGame.bind(this, challengeId)}>Back</button>
+	            </Col>
+	          </Row>
+	        </Grid>
+	      </div>
 		)
 	}
 });

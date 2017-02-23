@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Router, browserHistory } from 'react-router'
-import { Form, ValidatedInput, RadioGroup, Radio } from 'react-bootstrap-validation';
-import { Button } from 'react-bootstrap';
+import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
+import { Form, ValidatedInput } from 'react-bootstrap-validation';
 import { Accounts } from 'meteor/accounts-base';
 
 const Login = React.createClass({
@@ -21,7 +21,61 @@ const Login = React.createClass({
 	_handleInvalidSubmit(errors, values) {
 	    console.log(errors)
 	},
-	login() {
+	login(username, gameId) {
+		return (
+      <div>
+        <Grid>
+          <Row className='header'>
+            <Col md={4} mdOffset={4}>
+              <h2>Login</h2>
+              <p>Login to {username ? username + "'s" : "your student's " } account using the same password you used to sign up your parent account.</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4} mdOffset={4}>
+              { this.props.error ? <p className='alert alert-danger'>{this.props.error}</p> : null }
+              <Form
+                  onValidSubmit={this._handleValidSubmit}
+                  onInvalidSubmit={this._handleInvalidSubmit}>
+
+                  <ValidatedInput
+                      type={username ? 'hidden' : 'text'}
+                      label={ username ? '' : 'Username' }
+                      name='username'
+                      value={username}
+                      validate='required,isLength:3:30'
+                      errorHelp={{
+                          required: 'Please specify a username',
+                          isLength: 'Username must be at least 3 characters'
+                      }}
+                  />
+
+                  <ValidatedInput
+                      type='hidden'
+                      name='gameId'
+                      value={gameId}
+                  />
+
+                  <ValidatedInput
+                      type='password'
+                      name='password'
+                      label='Password'
+                      validate='required,isLength:3:30'
+                      errorHelp={{
+                          required: 'Please specify a password',
+                          isLength: 'Password must be at least 3 characters'
+                      }}
+                  />
+
+                  <input type="submit" className="button text-center" value="Login"/>
+              </Form>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+		)
+	},
+	render() {
 
     function getParameterByName(name, url) {
         if (!url) {
@@ -37,57 +91,23 @@ const Login = React.createClass({
 
     const username = getParameterByName('username')
     const gameId = getParameterByName('gameId')
+
 		return (
-        <div>
-          { this.props.userState.error ? <p className='error'>{this.props.userState.errorMsg}</p> : null }
-
-
-          <Form
-              onValidSubmit={this._handleValidSubmit}
-              onInvalidSubmit={this._handleInvalidSubmit}>
-
-              <ValidatedInput
-                  type={username ? 'hidden' : 'text'}
-                  label={ username ? '' : 'Username' }
-                  name='username'
-                  value={username}
-                  validate='required,isLength:3:30'
-                  errorHelp={{
-                      required: 'Please specify a username',
-                      isLength: 'Username must be at least 3 characters'
-                  }}
-              />
-
-              <ValidatedInput
-                  type='hidden'
-                  name='gameId'
-                  value={gameId}
-              />
-
-              <ValidatedInput
-                  type='password'
-                  name='password'
-                  label='Password'
-                  validate='required,isLength:3:30'
-                  errorHelp={{
-                      required: 'Please specify a password',
-                      isLength: 'Password must be at least 3 characters'
-                  }}
-              />
-
-              <Button
-                type='submit'
-                className='submit'
-              >Login</Button>
-          </Form>
-        </div>
-		)
-	},
-	render() {
-		return (
-			<div className='container loser'>
-				<div className='text'>Login to your student account using the same password you used to sign up your parent account.</div>
-				{ this.login() }
+			<div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="/">pttrns</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+            { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+				{ this.login(username, gameId) }
 			</div>
 		)
 	}
