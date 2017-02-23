@@ -8,7 +8,7 @@ import { Col, Row, Grid, Input, ButtonInput} from 'react-bootstrap';
 class Question extends React.Component{
 	constructor(props) {
 		super(props);
-
+		console.log(props.question)
 		this.state = {
 		  student: false,
 		  question: props.question,

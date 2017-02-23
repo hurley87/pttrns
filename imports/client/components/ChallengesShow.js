@@ -6,6 +6,7 @@ import StartGame from './StartGame';
 import Question from './Question';
 import Winner from './Winner';
 import Loser from './Loser';
+import AppNav from './Nav';
 import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
 
 const ChallengesShow = React.createClass({
@@ -75,19 +76,7 @@ const ChallengesShow = React.createClass({
 		const operator = this.questionType(ch.operator);
 		return(
 	      <div>
-			  <Navbar>
-			    <Navbar.Header>
-			      <Navbar.Brand>
-			        <a href="/">pttrns</a>
-			      </Navbar.Brand>
-			      <Navbar.Toggle />
-			    </Navbar.Header>
-			    <Navbar.Collapse>
-			      <Nav pullRight>
-			      { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
-			      </Nav>
-			    </Navbar.Collapse>
-			  </Navbar>
+			<AppNav />
 	        <Grid>
 	          <Row className='header'>
 	            <Col md={4} mdOffset={4}>

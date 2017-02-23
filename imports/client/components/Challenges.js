@@ -4,6 +4,7 @@ import { Challenges } from '../../collections'
 import { Link } from 'react-router';
 import Loading from './Loading'
 import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
+import AppNav from './Nav';
 
 const ChallengesList = React.createClass({
 	mixins: [ReactMeteorData],
@@ -46,20 +47,13 @@ const ChallengesList = React.createClass({
 		}
 		return ( this.data.challengesReady ? 
         <div>
-		  <Navbar>
-		    <Navbar.Header>
-		      <Navbar.Brand>
-		        <a href="/">pttrns</a>
-		      </Navbar.Brand>
-		      <Navbar.Toggle />
-		    </Navbar.Header>
-		    <Navbar.Collapse>
-		      <Nav pullRight>
-		      { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
-		      </Nav>
-		    </Navbar.Collapse>
-		  </Navbar>
+		  <AppNav />
         <Grid>
+          <Row className='header'>
+            <Col md={4} mdOffset={4}>
+              <h2></h2>
+            </Col>
+          </Row>
           <Row>
             <Col md={4} mdOffset={4}>
 				{ newChallenges == 0 && attemptedChallenges == 0 ? <div className='text'>No new challenges</div> : null}
@@ -69,6 +63,8 @@ const ChallengesList = React.createClass({
 				{ newChallenges ? this.showChallenges(newChallenges) : null }
 				{ pastChallenges.length > 0 ? <div className='text'>Complete</div> : null}
 				{ pastChallenges ? this.showChallenges(pastChallenges) : null }
+				<br />
+				<br />
 			</Col> 
 		   </Row>
 		</Grid></div> : <Loading />

@@ -3,6 +3,7 @@ import { Link, Router, browserHistory } from 'react-router'
 import { Col, Row, Grid, Input, ButtonInput, Navbar, MenuItem, Nav, NavItem, NavDropdown} from 'react-bootstrap';
 import { Form, ValidatedInput } from 'react-bootstrap-validation';
 import { Accounts } from 'meteor/accounts-base';
+import AppNav from './Nav';
 
 const Login = React.createClass({
 	_handleValidSubmit(values) {
@@ -94,19 +95,7 @@ const Login = React.createClass({
 
 		return (
 			<div>
-        <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="/">pttrns</a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-            { Meteor.userId() ? <NavItem href="/logout">Logout</NavItem> : null }
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <AppNav />
 				{ this.login(username, gameId) }
 			</div>
 		)

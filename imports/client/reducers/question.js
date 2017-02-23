@@ -216,7 +216,6 @@ function timeRunsOut(state, submissions) {
 	};
 }
 
-// TODO: refactor this
 function handleCorrect(state, submissions) {
 	if(state.right == state.winningThreshold - 1) {
 		return {
@@ -231,16 +230,34 @@ function handleCorrect(state, submissions) {
 
 	let num1 = _.random(state.min, state.max);
 	let num2 = _.random(state.min, state.max);
+	let answer = 0;
 
-	while(num2 == state.num2 && num1 == state.num1 || num1 == state.num2 && num2 == state.num1) {
-		num2 = _.random(state.min, state.max);
-		num1 = _.random(state.min, state.max);
+	while(answer == state.answer) {
+		let num2 = _.random(state.min, state.max);
+		let num1 = _.random(state.min, state.max);
 
 		if(num2 > num1) {
 			const larger = num2;
 			const smaller = num1;
 			num1 = larger;
 			num2 = smaller;
+		}
+
+		switch(state.operator) {
+			case '+':
+				answer = num1 + num2
+				return newAdditionQuestion(state, num1, num2, submissions);
+			case '-':
+				num1 >= num2 ? answer = num1 - num2 : num2 - num1
+				return newSubtractionQuestion(state, num1, num2, submissions);
+			case 'x':
+				answer = num1 * num2
+				return newMultiplicationQuestion(state, num1, num2, submissions);
+			case '/':
+				num1 >= num2 ? answer = num1 / num2 : num2 / num1
+				return newDivisionQuestion(state, num1, num2, submissions)
+			default:
+				return state
 		}
 
 	}
