@@ -57,6 +57,7 @@ const ChallengesList = React.createClass({
           <Row>
             <Col md={4} mdOffset={4}>
 				{ newChallenges == 0 && attemptedChallenges == 0 ? <div className='text'>No new challenges</div> : null}
+				<br />
 				{ attemptedChallenges.length > 0 ? <div className='text'>Continue</div> : null}
 				{ attemptedChallenges ? this.showChallenges(attemptedChallenges) : null }
 				{ newChallenges.length > 0 ? <div className='text'>New</div> : null}
