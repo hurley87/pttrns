@@ -18,7 +18,7 @@ const Winner = React.createClass({
 	          <Row className='header'>
 	            <Col md={4} mdOffset={4}>
 	              <h2>{question.timeTaken + 1} seconds </h2>
-	              <p>{question.right} right - { question.wrong == 0 ? null : question.wrong + " wrong "}</p>
+	              <p>{question.right} right { question.wrong == 0 ? null : " - " + question.wrong + " wrong "}</p>
 	            </Col>
 	          </Row>
 	          <Row>

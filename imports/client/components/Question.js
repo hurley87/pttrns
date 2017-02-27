@@ -47,12 +47,20 @@ class Question extends React.Component{
 		const question = this.props.question;
 		const width = parseFloat(question.seconds / question.totalTime * 100);
 		const width2 = 100 - parseFloat(this.props.question.right / this.props.question.winningThreshold * 100);
+		const green = '#2ecc71';
+		const red = '#e74c3c'
+
+		let divColor = green;
+
+		if(width < width2) {
+			divColor = red;
+		}
 		return (
 	      <div>
 	        <Grid>
 	          <Row>
 	            <Col style={{ padding: '0px'}} md={4} mdOffset={4}>
-					<ProgressBar width={width2} />
+					<ProgressBar divColor={divColor} width={width2} />
 					<ProgressBar width={width} />
 					<div style={{ border: '5px solid ' + question.borderColor }} className='wrapper'>
 						{ this.question() }
