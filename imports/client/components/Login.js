@@ -58,14 +58,10 @@ const Login = React.createClass({
                   />
 
                   <ValidatedInput
-                      type='password'
+                      type={gameId ? 'hidden' : 'password'}
                       name='password'
-                      label='Password'
-                      validate='required,isLength:3:30'
-                      errorHelp={{
-                          required: 'Please specify a password',
-                          isLength: 'Password must be at least 3 characters'
-                      }}
+                      value={ gameId }
+                      label={ gameId ? '' : 'password' }
                   />
 
                   <input type="submit" className="button text-center" value="Login"/>
@@ -92,6 +88,7 @@ const Login = React.createClass({
 
     const username = getParameterByName('username')
     const gameId = getParameterByName('gameId')
+    console.log(gameId)
 
 		return (
 			<div>
