@@ -37,8 +37,8 @@ const ChallengesShow = React.createClass({
 	        <Grid>
 	          <Row className='header'>
 	            <Col md={4} mdOffset={4}>
-	              <h2>{ch.reward}</h2>
-	              <p>You answered {challenge.right} {operator} questions in {challenge.time} seconds.</p>
+	              <h2>You won {ch.reward}!</h2>
+	              <p>You answered {challenge.right} {operator} questions in {challenge.time} seconds. Way to go!</p>
 	            </Col>
 	          </Row>
 	          <Row>

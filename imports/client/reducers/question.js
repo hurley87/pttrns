@@ -230,7 +230,7 @@ function handleCorrect(state, submissions) {
 
 	let num1 = _.random(state.min, state.max);
 	let num2 = _.random(state.min, state.max);
-	let answer = 0;
+	let answer = state.answer;
 
 	while(answer == state.answer) {
 		let num2 = _.random(state.min, state.max);
@@ -246,15 +246,15 @@ function handleCorrect(state, submissions) {
 		switch(state.operator) {
 			case '+':
 				answer = num1 + num2
-				return newAdditionQuestion(state, num1, num2, submissions);
+				return newAdditionQuestion(state, num1, num2, submissions)
 			case '-':
-				num1 >= num2 ? answer = num1 - num2 : num2 - num1
+				num1 >= num2 ? answer = num1 - num2 : answer = num2 - num1
 				return newSubtractionQuestion(state, num1, num2, submissions);
 			case 'x':
 				answer = num1 * num2
 				return newMultiplicationQuestion(state, num1, num2, submissions);
 			case '/':
-				num1 >= num2 ? answer = num1 / num2 : num2 / num1
+				num1 >= num2 ? answer = num1 / num2 : answer = num2 / num1
 				return newDivisionQuestion(state, num1, num2, submissions)
 			default:
 				return state
