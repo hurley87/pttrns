@@ -10,19 +10,20 @@ const Login = React.createClass({
 		const username = values.username;
 		const password = values.password;
     const gameId = values.gameId;
+    const challengeId = values.challengeId;
     const signUpError = this.props.signUpError;
 		Meteor.loginWithPassword(username, password, function(err) {
 	    	if(err) {
           signUpError(err.reason)
 	    	} else {
-          gameId ? browserHistory.push(`/challenges`) : browserHistory.push('/game')
+          gameId ? browserHistory.push(`/challenges/${challengeId}`) : browserHistory.push('/game')
 	    	}
         });
 	},
 	_handleInvalidSubmit(errors, values) {
 	    console.log(errors)
 	},
-	login(username, gameId) {
+	login(username, gameId, challengeId) {
 		return (
       <div>
         <Grid>
@@ -58,6 +59,12 @@ const Login = React.createClass({
                   />
 
                   <ValidatedInput
+                      type='hidden'
+                      name='challengeId'
+                      value={challengeId}
+                  />
+
+                  <ValidatedInput
                       type={gameId ? 'hidden' : 'password'}
                       name='password'
                       value={ gameId }
@@ -88,12 +95,12 @@ const Login = React.createClass({
 
     const username = getParameterByName('username')
     const gameId = getParameterByName('gameId')
-    console.log(gameId)
+    const challengeId = getParameterByName('challengeId')
 
 		return (
 			<div>
         <AppNav />
-				{ this.login(username, gameId) }
+				{ this.login(username, gameId, challengeId) }
 			</div>
 		)
 	}
